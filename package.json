@@ -14,7 +14,9 @@
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
+    "chai": "^4.1.0",
     "flow-bin": "^0.50.0",
-    "istanbul": "^0.4.5"
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2"
   }
 }
