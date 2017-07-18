@@ -1,0 +1,16 @@
+{
+  "name": "merkelle",
+  "version": "0.0.1",
+  "description": "Blockchain-based autonomous game world written in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib"
+  },
+  "author": "Connor Bryan",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0"
+  }
+}
