@@ -25,6 +25,11 @@ const constants: Object = {
   GREETING: (content: string): string => (
     `> Received a greeting: ${content}`
   ),
+  BLOCKCHAIN_IS_BEHIND: `> Our blockchain seems to be behind. Let's update.`,
+  HASHES_MATCH: `> The hash of the received block seems to be legitimate.`,
+  REQUESTING_UPDATED_BLOCKCHAIN: `> Our blockchain is way behind. Let's update everything.`,
+  REPLACING_ENTIRE_BLOCKCHAIN: `> Let's rebuild our blockchain from scratch.`,
+  UP_TO_DATE: `> Everything's up to date.`,
 };
 
 export default constants;

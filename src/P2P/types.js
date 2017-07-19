@@ -1,10 +1,13 @@
 /* @flow */
+import Blockchain from '../Blockchain';
+
 export type P2PConfig = {
   port: number,
-  peers: Array<string>
+  peers: Array<string>,
+  chain: Blockchain,
 }
 
 export type SocketMessage = {
   type: string,
-  data: Object,
+  data: any,
 }
