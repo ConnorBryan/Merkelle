@@ -2,15 +2,20 @@
 import type { Action } from './types';
 import ACTION_TYPES from './actionTypes';
 import Adventurer from './Adventurer';
+import Monster from './Monster';
 
 const {
-  GENERATE_ADVENTURER,
+  GENERATE_ENTITY,
 }: Object = ACTION_TYPES;
 
 const ACTION_CREATORS: Object = {
   generateAdventurer: (): Action => ({
-    type: GENERATE_ADVENTURER,
-    payload: { adventurer: new Adventurer() }
+    type: GENERATE_ENTITY,
+    payload: { entity: new Adventurer() }
+  }),
+  generateMonster: (): Action => ({
+    type: GENERATE_ENTITY,
+    payload: { entity: new Monster() }
   }),
 };
 

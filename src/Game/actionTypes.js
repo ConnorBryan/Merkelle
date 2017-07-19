@@ -1,6 +1,6 @@
 /* @flow */
-const GENERATE_ADVENTURER: string = 'GENERATE_ADVENTURER';
+const GENERATE_ENTITY: string = 'GENERATE_ENTITY';
 
 export default {
-  GENERATE_ADVENTURER,
+  GENERATE_ENTITY,
 };

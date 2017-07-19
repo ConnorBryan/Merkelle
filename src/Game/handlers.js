@@ -3,25 +3,25 @@ import type { GameState, Action } from './types';
 import ACTION_TYPES from './actionTypes';
 
 const {
-  GENERATE_ADVENTURER,
+  GENERATE_ENTITY,
 }: Object = ACTION_TYPES;
 
 const HANDLERS: Object = {
-  [GENERATE_ADVENTURER]: (state: GameState, action: Action): GameState => {
+  [GENERATE_ENTITY]: (state: GameState, action: Action): GameState => {
     const { mostRecentEntity, entitiesById } = state;
-    const { payload: { adventurer } } = action;
+    const { payload: { entity } } = action;
 
-    if (!mostRecentEntity) {
-      adventurer.id = 0;
+    if (typeof mostRecentEntity !== 'number') {
+      entity.id = 0;
     } else {
       const { id } = entitiesById[mostRecentEntity];
-      adventurer.id = id + 1;
+      entity.id = id + 1;
     }
 
     return {
       ...state,
-      mostRecentEntity: adventurer.id,
-      entitiesById: [...entitiesById, adventurer],
+      mostRecentEntity: entity.id,
+      entitiesById: [...entitiesById, entity],
     };
   },
 };
