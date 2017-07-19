@@ -1,7 +1,9 @@
 /* @flow */
 import Chance from 'chance';
+import CONSTANTS from '../constants';
 import type { AbilityScores } from './types';
 
+const { ABILITY_SCORES } = CONSTANTS;
 const CHANCE = new Chance();
 
 export default class Entity {
@@ -39,9 +41,7 @@ export default class Entity {
   }
 
   generateAbilityScores(): AbilityScores {
-    const abilities = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
-    
-    return abilities.reduce((acc, cur) => {
+    return ABILITY_SCORES.reduce((acc, cur) => {
       acc[cur] = this.generateStat();
       return acc;
     }, {});

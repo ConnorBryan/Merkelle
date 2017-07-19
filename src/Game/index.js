@@ -19,5 +19,8 @@ const store = createStore(reducer);
 
 store.dispatch(ACTION_CREATORS.generateAdventurer());
 store.dispatch(ACTION_CREATORS.generateMonster());
+store.dispatch(ACTION_CREATORS.generateAdventurer());
 
 console.log(store.getState());
+
+export default reducer;

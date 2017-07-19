@@ -7,12 +7,3 @@ export type AbilityScores = {
   WIS: number;
   CHA: number;
 }
-
-const EntityTypes = {
-  ADVENTURER: 'ADVENTURER',
-  MONSTER: 'MONSTER',
-};
-
-export default {
-  EntityTypes,
-};
