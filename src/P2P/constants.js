@@ -8,7 +8,7 @@ const constants: Object = {
   INITIALIZED_CONNECTION_WITH_SOCKET: (socket: WebSocket): string => (
     socket.url
       ? `> Initialized a new connection with socket at ${socket.url}.`
-      : `> Initialized a new connection with an unidentified socket.`
+      : `> Initialized a new connection with a socket.`
   ),
   CLOSED_CONNECTION_WITH_SOCKET: (socket: WebSocket): string => (
     `> Closed the connection to socket at ${socket.url}.`

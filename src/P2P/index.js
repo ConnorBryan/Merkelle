@@ -22,6 +22,13 @@ export default class P2P {
     console.info(message);
   }
 
+  greet = (socket: WebSocket, content: string): void => {
+    this.write(socket, {
+      type: MessageTypes.GREETING,
+      data: { content },
+    });
+  }
+
   handleMessage = (message: string): void => {
     message = JSON.parse(message);
 
