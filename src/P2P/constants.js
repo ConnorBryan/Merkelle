@@ -19,6 +19,12 @@ const constants: Object = {
   INVALID_PEER: (peer: string): string => (
     `> Attempted to connect to invalid peer ${peer}.`
   ),
+  RECEIVED_INVALID_MESSAGE: (message: Object) => (
+    `> Received an invalid message: ${JSON.stringify(message)}.`
+  ),
+  GREETING: (content: string): string => (
+    `> Received a greeting: ${content}`
+  ),
 };
 
 export default constants;

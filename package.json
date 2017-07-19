@@ -21,6 +21,7 @@
     "mocha": "^3.4.2"
   },
   "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "ws": "^3.0.0"
   }
 }
