@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "prepublish": "yarn run build"
+    "prepublish": "yarn run build",
+    "go": "yarn run build && nodejs lib/index"
   },
   "author": "Connor Bryan",
   "license": "ISC",
@@ -18,5 +19,8 @@
     "flow-bin": "^0.50.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2"
+  },
+  "dependencies": {
+    "ws": "^3.0.0"
   }
 }
