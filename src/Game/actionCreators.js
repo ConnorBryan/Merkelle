@@ -1,8 +1,8 @@
 /* @flow */
 import type { Action } from './types';
 import ACTION_TYPES from './actionTypes';
-import Adventurer from './Adventurer';
-import Monster from './Monster';
+import Adventurer from './classes/Adventurer';
+import Monster from './classes/Monster';
 
 const {
   GENERATE_ENTITY,

@@ -1,7 +1,7 @@
 /* @flow */
 import Chance from 'chance';
-import CONSTANTS from '../data/constants.json';
-import MONSTERS from '../data/monsters.json';
+import CONSTANTS from '../../data/constants.json';
+import MONSTERS from '../../data/monsters.json';
 import Entity from '../Entity';
 import type {
   MonsterAction,

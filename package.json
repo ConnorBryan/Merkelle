@@ -4,7 +4,7 @@
   "description": "Blockchain-based autonomous game world written in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "yarn run build && ./node_modules/.bin/mocha lib/**/*.spec.js",
+    "test": "yarn run build && ./node_modules/.bin/mocha lib/**/**/*.spec.js",
     "build": "babel src -d lib",
     "prepublish": "yarn run build",
     "go": "yarn run build && nodejs lib/",

@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import { createStore } from 'redux';
 import ACTION_CREATORS from './actionCreators';
 import reducer from './index';
-import Adventurer from './Adventurer';
-import Monster from './Monster';
-import CONSTANTS from './Entity/constants';
+import Adventurer from './classes/Adventurer';
+import Monster from './classes/Monster';
+import CONSTANTS from './data/constants.json';
 
 const {
   generateAdventurer,

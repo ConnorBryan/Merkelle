@@ -1,5 +1,5 @@
 /* @flow */
-import Entity from './Entity';
+import Entity from './classes/Entity';
 
 export type Action = {
   type: string;

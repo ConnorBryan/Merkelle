@@ -1,5 +1,5 @@
 /* @flow */
-import CONSTANTS from '../data/constants.json';
+import CONSTANTS from '../../data/constants.json';
 import Entity from '../Entity';
 
 const { ENTITY_TYPES } = CONSTANTS;
