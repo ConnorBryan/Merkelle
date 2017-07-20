@@ -5,6 +5,20 @@ import Adventurer from './index';
 const {
   ABILITY_SCORES,
   CLASSES,
+  CLASSES: {
+    BARBARIAN,
+    BARD,
+    CLERIC,
+    DRUID,
+    FIGHTER,
+    MONK,
+    PALADIN,
+    RANGER,
+    ROGUE,
+    SORCERER,
+    WARLOCK,
+    WIZARD
+  },
   RACES,
   ALIGNMENTS,
   BACKGROUNDS,
@@ -68,5 +82,15 @@ describe('(Adventurer)', () => {
     expect(adventurer.skills.athletics).to.equal(0);
     expect(adventurer.skills.acrobatics).to.equal(-2);
     expect(adventurer.skills.animalHandling).to.equal(2);
+  });
+
+  it('should have the correct base hitpoints', () => {
+    adventurer.class = ROGUE;
+    adventurer.abilityScores.CON = 10;
+    expect(adventurer.getBaseHitpoints()).to.equal(8);
+
+    adventurer.class = BARBARIAN;
+    adventurer.abilityScores.CON = 14;
+    expect(adventurer.getBaseHitpoints()).to.equal(14);
   });
 });

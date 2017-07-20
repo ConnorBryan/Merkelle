@@ -132,9 +132,9 @@ export default class Adventurer extends Entity {
     this.proficiencyBonus = 2;
     this.savingThrows = this.getSavingThrows();
     this.skills = this.getBaseSkills();
-    // this.currentHitpoints = this.getHitpoints().current;
-    // this.hitpointMaximum = this.getHitpoints().max;
-    // this.temporaryHitpoints = 0;
+    this.currentHitpoints = this.getBaseHitpoints();
+    this.hitpointMaximum = this.getBaseHitpoints();
+    this.temporaryHitpoints = 0;
     // this.hitDiceValue = this.getHitDiceValue();
     // this.hitDiceCount = 1;
     // this.deathSaves = {
@@ -222,6 +222,24 @@ export default class Adventurer extends Entity {
 
       return acc;
     }, {});
+  }
+
+  getBaseHitpoints(): number {
+    const six = [SORCERER, WIZARD];
+    const eight = [ROGUE, WARLOCK, BARD, DRUID, MONK, CLERIC];
+    const ten = [PALADIN, FIGHTER, RANGER];
+    const twelve = [BARBARIAN];
+    const _class = this.class;
+    const modifier = this.getModifier(this.abilityScores.CON);
+
+    let base;
+
+    if (~six.indexOf(_class)) base = 6;
+    if (~eight.indexOf(_class)) base = 8;
+    if (~ten.indexOf(_class)) base = 10;
+    if (~twelve.indexOf(_class)) base = 12;
+
+    return base + modifier;
   }
 
   generateClass(): string {
