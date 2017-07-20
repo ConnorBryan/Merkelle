@@ -19,7 +19,6 @@ const reducer = (state: GameState = initialState, action: Action): GameState => 
 const store = createStore(reducer);
 
 store.dispatch(ACTION_CREATORS.generateAdventurer());
-store.dispatch(ACTION_CREATORS.generateMonster());
 
 console.log(JSON.stringify(store.getState()));
 
