@@ -15,6 +15,6 @@
     "MONSTER": "MONSTER"
   },
   "ERRORS": {
-    "INVALID_MONSTER_COUNT": "A new monster cannot be created if there are no monsters in the data set."
+    "INVALID_MONSTER_NAME": "A monster does not exist with the provided name"
   }
 }

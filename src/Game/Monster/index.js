@@ -50,10 +50,6 @@ export default class Monster extends Entity {
   randomize(challengeRating: number): void {
     const monsterCount = MONSTERS.length;
 
-    if (monsterCount.length === 0) {
-      throw new Error(INVALID_MONSTER_COUNT);
-    }
-
     let monster = MONSTERS[CHANCE.integer({ min: 0, max: monsterCount - 1 })];
 
     while (monster.attributes.challengeRating !== challengeRating) {
