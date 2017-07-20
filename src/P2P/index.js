@@ -1,9 +1,24 @@
 /* @flow */
 import WebSocket from 'ws';
 import Blockchain, { Block } from '../Blockchain';
-import constants from './constants';
+import CONSTANTS from './constants';
 import type { P2PConfig, SocketMessage } from './types';
-import MessageTypes from './messageTypes';
+
+const {
+  MESSAGE_TYPES,
+  INITIALIZED_SERVER,
+  INITIALIZED_CONNECTION_WITH_SOCKET,
+  CLOSED_CONNECTION_WITH_SOCKET,
+  UNABLE_TO_CONNECT_TO_PEER,
+  INVALID_PEER,
+  RECEIVED_INVALID_MESSAGE,
+  GREETING,
+  BLOCKCHAIN_IS_BEHIND,
+  HASHES_MATCH,
+  REQUESTING_UPDATED_BLOCKCHAIN,
+  REPLACING_ENTIRE_BLOCKCHAIN,
+  UP_TO_DATE,
+} = CONSTANTS;
 
 export default class P2P {
   port: number;
@@ -27,21 +42,21 @@ export default class P2P {
 
   greet = (socket: WebSocket, content: string): void => {
     this.write(socket, {
-      type: MessageTypes.GREETING,
+      type: MESSAGE_TYPES.GREETING,
       data: { content },
     });
   }
 
   update = (): void => {
     this.broadcast({
-      type: MessageTypes.UPDATE,
+      type: MESSAGE_TYPES.UPDATE,
       data: this.blockchain.chain,
     });
   }
 
   requestAll = (): void => {
     this.broadcast({
-      type: MessageTypes.REQUEST_ALL,
+      type: MESSAGE_TYPES.REQUEST_ALL,
       data: {},
     });
   }
@@ -50,14 +65,14 @@ export default class P2P {
     message = JSON.parse(message);
 
     switch (message.type) {
-      case MessageTypes.GREETING:
-        this.log(constants.GREETING(message.data.content));
+      case MESSAGE_TYPES.GREETING:
+        this.log(GREETING(message.data.content));
         break;
-      case MessageTypes.UPDATE:
+      case MESSAGE_TYPES.UPDATE:
         this.handleUpdate(message.data);
         break;
       default:
-        this.log(constants.RECEIVED_INVALID_MESSAGE(message));
+        this.log(RECEIVED_INVALID_MESSAGE(message));
         break;
     }
   }
@@ -71,29 +86,29 @@ export default class P2P {
     const receivedSingleBlock = newBlockchain.length === 1;
 
     if (blockchainIsBehind) {
-      this.log(constants.BLOCKCHAIN_IS_BEHIND);
+      this.log(BLOCKCHAIN_IS_BEHIND);
 
       if (hashesMatch) {
-        this.log(constants.HASHES_MATCH);
+        this.log(HASHES_MATCH);
 
         this.blockchain.chain.push(mostRecentBlockReceived);
         
         this.broadcast({
-          type: MessageTypes.UPDATE,
+          type: MESSAGE_TYPES.UPDATE,
           data: [this.blockchain.getMostRecentBlock()],
         });
       }
       else if (receivedSingleBlock) {
-        this.log(constants.REQUESTING_UPDATED_BLOCKCHAIN);
+        this.log(REQUESTING_UPDATED_BLOCKCHAIN);
         this.requestAll();
       }
       else {
-        this.log(constants.REPLACING_ENTIRE_BLOCKCHAIN);
+        this.log(REPLACING_ENTIRE_BLOCKCHAIN);
         this.blockchain.chain = chain;
       }
     }
     else {
-      this.log(constants.UP_TO_DATE);
+      this.log(UP_TO_DATE);
     }
   }
 
@@ -101,7 +116,7 @@ export default class P2P {
     this.server = new WebSocket.Server({ port: this.port });
     this.server.on('connection', (socket: WebSocket) => this.initializeConnection(socket));
     this.connectToPeers();
-    this.log(constants.INITIALIZED_SERVER(this.port));
+    this.log(INITIALIZED_SERVER(this.port));
   }
 
   initializeConnection(socket: WebSocket): void {
@@ -109,7 +124,7 @@ export default class P2P {
     socket.on('message', message => this.handleMessage(message, socket));
     socket.on('error', () => this.closeConnection(socket));
     socket.on('close', () => this.closeConnection(socket));
-    this.log(constants.INITIALIZED_CONNECTION_WITH_SOCKET(socket));
+    this.log(INITIALIZED_CONNECTION_WITH_SOCKET(socket));
   }
 
   connectToPeers(peers: Array<string> = []): void {
@@ -118,16 +133,16 @@ export default class P2P {
       try {
         const socket = new WebSocket(peer);
         socket.on('open', () => this.initializeConnection(socket));
-        socket.on('error', () => this.log(constants.UNABLE_TO_CONNECT_TO_PEER(socket)));
+        socket.on('error', () => this.log(UNABLE_TO_CONNECT_TO_PEER(socket)));
       } catch (e) {
-        this.log(constants.INVALID_PEER(peer));
+        this.log(INVALID_PEER(peer));
       }
     });
   }
 
   closeConnection(socket: WebSocket): void {
     this.sockets.splice(this.sockets.indexOf(socket), 1);
-    this.log(constants.CLOSED_CONNECTION_WITH_SOCKET(socket));
+    this.log(CLOSED_CONNECTION_WITH_SOCKET(socket));
   }
 
   write(socket: WebSocket, message: SocketMessage): void {

@@ -5,7 +5,12 @@ import bodyParser from 'body-parser';
 import P2P from '../P2P';
 import Blockchain from '../Blockchain';
 import type { HTTPConfig } from './types';
-import constants from './constants';
+import CONSTANTS from './constants';
+
+const {
+  ADDED_NEW_BLOCK,
+  HTTP_SERVER_LISTENING,
+} = CONSTANTS;
 
 export default class HTTP {
   port: number;
@@ -64,7 +69,7 @@ export default class HTTP {
     app.post('/mineBlock', (req, res) => {
       this.blockchain.addBlock();
       this.p2p.update();
-      this.log(constants.ADDED_NEW_BLOCK);
+      this.log(ADDED_NEW_BLOCK);
       res.send({ success: true });
     });
 
@@ -78,7 +83,7 @@ export default class HTTP {
 
   listen() {
     this.server && this.server.listen(this.port, () => {
-      this.log(constants.HTTP_SERVER_LISTENING(this.port));
+      this.log(HTTP_SERVER_LISTENING(this.port));
     });
   }
 }

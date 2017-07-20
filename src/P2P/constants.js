@@ -2,6 +2,11 @@
 import WebSocket from 'ws';
 
 const constants: Object = {
+  MESSAGE_TYPES: {
+    GREETING: 'GREETING',
+    UPDATE: 'UPDATE',
+    REQUEST_ALL: 'REQUEST ALL',
+  },
   INITIALIZED_SERVER: (port: number): string => (
     `> Initialized a new P2P server on port ${port}.`
   ),
