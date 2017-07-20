@@ -12,18 +12,82 @@ import type {
 } from './types';
 
 const {
-  ENTITY_TYPES: {
-    ADVENTURER,
-  },
+  ENTITY_TYPES: { ADVENTURER },
   ABILITY_SCORES,
-  CLASSES,
+  CLASSES: {
+    BARBARIAN,
+    BARD,
+    CLERIC,
+    DRUID,
+    FIGHTER,
+    MONK,
+    PALADIN,
+    RANGER,
+    ROGUE,
+    SORCERER,
+    WARLOCK,
+    WIZARD
+  },
   CLASS_LIST,
-  RACES,
+  RACES: {
+    DRAGONBORN,
+    HILL_DWARF,
+    MOUNTAIN_DWARF,
+    HIGH_ELF,
+    WOOD_ELF,
+    DROW,
+    FOREST_GNOME,
+    ROCK_GNOME,
+    DEEP_GNOME,
+    HALF_ELF,
+    HALF_ORC,
+    HALFLING,
+    HUMAN,
+    TIEFLING,
+    GENASI,
+    GOLIATH,
+  },
   RACE_LIST,
   ALIGNMENTS,
   ALIGNMENT_LIST,
-  BACKGROUNDS,
+  BACKGROUNDS: {
+    ACOLYTE,
+    CHARLATAN,
+    CRIMINAL,
+    ENTERTAINER,
+    FOLK_HERO,
+    GUILD_ARTISAN,
+    HERMIT,
+    NOBLE,
+    OUTLANDER,
+    SAGE,
+    SAILOR,
+    SOLDIER,
+    URCHIN,
+  },
   BACKGROUND_LIST,
+  SKILLS,
+  SKILLS: {
+    ACROBATICS,
+    ANIMAL_HANDLING,
+    ARCANA,
+    ATHLETICS,
+    DECEPTION,
+    HISTORY,
+    INSIGHT,
+    INTIMIDATION,
+    INVESTIGATION,
+    MEDICINE,
+    NATURE,
+    PERCEPTION,
+    PERFORMANCE,
+    PERSUASION,
+    RELIGION,
+    SLEIGHT_OF_HAND,
+    STEALTH,
+    SURVIVAL,
+  },
+  SKILL_LIST,
 } = CONSTANTS;
 const CHANCE = new Chance();
 
@@ -67,7 +131,7 @@ export default class Adventurer extends Entity {
     this.inspiration = false;
     this.proficiencyBonus = 2;
     this.savingThrows = this.getSavingThrows();
-    // this.skills = this.getSkills();
+    this.skills = this.getBaseSkills();
     // this.currentHitpoints = this.getHitpoints().current;
     // this.hitpointMaximum = this.getHitpoints().max;
     // this.temporaryHitpoints = 0;
@@ -113,6 +177,53 @@ export default class Adventurer extends Entity {
     }, {});
   }
 
+  getBaseSkills(): Skills {
+    const strSkills = [
+      ATHLETICS,
+    ];
+    const dexSkills = [
+      ACROBATICS,
+      SLEIGHT_OF_HAND,
+      STEALTH,
+    ];
+    const intSkills = [
+      ARCANA,
+      HISTORY,
+      INVESTIGATION,
+      NATURE,
+      RELIGION,
+    ];
+    const wisSkills = [
+      ANIMAL_HANDLING,
+      INSIGHT,
+      MEDICINE,
+      PERCEPTION,
+      SURVIVAL,
+    ];
+    const chaSkills = [
+      DECEPTION,
+      INTIMIDATION,
+      PERFORMANCE,
+      PERSUASION,
+    ];
+
+    return SKILL_LIST.reduce((acc, cur) => {
+      const skill = SKILLS[cur];
+
+      let value;
+
+      if (~strSkills.indexOf(skill)) value = this.getModifier(this.abilityScores.STR);
+      if (~dexSkills.indexOf(skill)) value = this.getModifier(this.abilityScores.DEX);
+      if (~intSkills.indexOf(skill)) value = this.getModifier(this.abilityScores.INT);
+      if (~wisSkills.indexOf(skill)) value = this.getModifier(this.abilityScores.WIS);
+      if (~chaSkills.indexOf(skill)) value = this.getModifier(this.abilityScores.CHA);
+
+      acc[skill] = value;
+
+      return acc;
+    }, {});
+  }
+
   generateClass(): string {
     return CLASS_LIST[CHANCE.integer({ min: 0, max: CLASS_LIST.length - 1 })];
   }
@@ -140,9 +251,9 @@ export default class Adventurer extends Entity {
 
     rolls.forEach(roll => roll < lowest && (lowest = roll));
 
-    return rolls
-      .filter(roll => roll !== lowest)
-      .reduce((acc, cur) => (acc += cur), 0);
+    rolls.splice(rolls.indexOf(lowest), 1);
+
+    return rolls.reduce((acc, cur) => (acc += cur), 0);
   }
 
   generateAbilityScores(): AbilityScores {

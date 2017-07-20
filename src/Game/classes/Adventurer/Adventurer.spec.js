@@ -59,4 +59,14 @@ describe('(Adventurer)', () => {
       expect(adventurer.savingThrows[key]).to.be.lt(5);
     });
   });
+
+  it('should get the correct base skills', () => {
+    adventurer.abilityScores.STR = 10;
+    adventurer.abilityScores.DEX = 6;
+    adventurer.abilityScores.WIS = 14;
+    adventurer.skills = adventurer.getBaseSkills();
+    expect(adventurer.skills.athletics).to.equal(0);
+    expect(adventurer.skills.acrobatics).to.equal(-2);
+    expect(adventurer.skills.animalHandling).to.equal(2);
+  });
 });

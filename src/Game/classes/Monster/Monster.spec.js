@@ -17,7 +17,7 @@ describe('(Monster)', () => {
   });
 
   it('should throw an error if given an invalid name parameter', () => {
-     const monster = new Monster('mother in law');
-     expect(monster).to.throw();
+     const makeMonster = () => (new Monster('mother in law'));
+     expect(makeMonster).to.throw();
   });
 });
