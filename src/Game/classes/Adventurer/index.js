@@ -12,7 +12,9 @@ import type {
 } from './types';
 
 const {
-  ENTITY_TYPES,
+  ENTITY_TYPES: {
+    ADVENTURER,
+  },
   ABILITY_SCORES,
   CLASSES,
   CLASS_LIST,
@@ -20,7 +22,7 @@ const {
   RACE_LIST,
   ALIGNMENTS,
   ALIGNMENT_LIST,
-  BACKGROUND,
+  BACKGROUNDS,
   BACKGROUND_LIST,
 } = CONSTANTS;
 const CHANCE = new Chance();
@@ -49,7 +51,7 @@ export default class Adventurer extends Entity {
   equipment: Array<Item>;
 
   constructor() {
-    super(ENTITY_TYPES.ADVENTURER);
+    super(ADVENTURER);
     this.randomize();
   }
 
@@ -64,7 +66,7 @@ export default class Adventurer extends Entity {
     this.abilityScores = this.generateAbilityScores();
     this.inspiration = false;
     this.proficiencyBonus = 2;
-    // this.savingThrows = this.getSavingThrows();
+    this.savingThrows = this.getSavingThrows();
     // this.skills = this.getSkills();
     // this.currentHitpoints = this.getHitpoints().current;
     // this.hitpointMaximum = this.getHitpoints().max;
@@ -82,6 +84,33 @@ export default class Adventurer extends Entity {
 
   rollDie(max: number): number {
     return CHANCE.integer({ min: 1, max });
+  }
+
+  getModifier(value: number): number {
+    if (value <= 1) return -5;
+    if (value <= 3) return -4;
+    if (value <= 5) return -3;
+    if (value <= 7) return -2;
+    if (value <= 9) return -1;
+    if (value <= 11) return 0;
+    if (value <= 13) return 1;
+    if (value <= 15) return 2;
+    if (value <= 17) return 3;
+    if (value <= 19) return 4;
+    if (value <= 21) return 5;
+    if (value <= 23) return 6;
+    if (value <= 25) return 7;
+    if (value <= 27) return 8;
+    if (value <= 29) return 9;
+    if (value >= 30) return 10;
+    return 0;
+  }
+
+  getSavingThrows(): AbilityScores {
+    return ABILITY_SCORES.reduce((acc, cur) => {
+      acc[cur] = this.getModifier(this.abilityScores[cur]);
+      return acc;
+    }, {});
   }
 
   generateClass(): string {
