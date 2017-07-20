@@ -16,7 +16,6 @@ const {
   },
   ERRORS: {
     INVALID_MONSTER_NAME,
-    INVALID_MONSTER_COUNT,
   },
 } = CONSTANTS;
 const CHANCE = new Chance();
