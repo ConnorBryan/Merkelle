@@ -1,0 +1,20 @@
+{
+  "ABILITY_SCORES": [
+    "STR",
+    "DEX",
+    "CON",
+    "INT",
+    "WIS",
+    "CHA"
+  ],
+  "CHALLENGE_RATING_TYPES": {
+    "ONE_EIGHTH": "ONE EIGHTH"
+  },
+  "ENTITY_TYPES": {
+    "ADVENTURER": "ADVENTURER",
+    "MONSTER": "MONSTER"
+  },
+  "ERRORS": {
+    "INVALID_MONSTER_COUNT": "A new monster cannot be created if there are no monsters in the data set."
+  }
+}

@@ -1,0 +1,40 @@
+[
+  {
+    "name": "Kobold",
+    "actions": [
+      {
+        "name": "use dagger",
+        "attackType": "MELEE",
+        "toHit": 4,
+        "targetCount": 1,
+        "hit": [4, 2],
+        "hitType": "PIERCING"
+      },
+      {
+        "name": "use sling",
+        "attackType": "RANGED",
+        "toHit": 4,
+        "targetCount": 1,
+        "hit": [4, 2],
+        "hitType": "BLUDGEONING"
+      }
+    ],
+    "attributes": {
+      "size": "SMALL",
+      "type": "HUMANOID",
+      "alignment": "LAWFUL EVIL",
+      "armorClass": 12,
+      "hitpoints": [5, 5],
+      "abilityScores": {
+        "STR": 7,
+        "DEX": 15,
+        "CON": 9,
+        "INT": 8,
+        "WIS": 7,
+        "CHA": 8
+      },
+      "darkvision": 60,
+      "challengeRating": "ONE EIGHTH"
+    }
+  }
+]

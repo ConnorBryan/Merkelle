@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import type { GameState, Action } from './types';
 import handlers from './handlers';
 import ACTION_CREATORS from './actionCreators';
+import monsters from './data/monsters.json';
 
 const initialState: GameState = {
   mostRecentEntity: null,
@@ -17,10 +18,8 @@ const reducer = (state: GameState = initialState, action: Action): GameState => 
 
 const store = createStore(reducer);
 
-store.dispatch(ACTION_CREATORS.generateAdventurer());
 store.dispatch(ACTION_CREATORS.generateMonster());
-store.dispatch(ACTION_CREATORS.generateAdventurer());
 
-console.log(store.getState());
+console.log(JSON.stringify(store.getState(), null, 2));
 
 export default reducer;

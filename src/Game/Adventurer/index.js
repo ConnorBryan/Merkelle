@@ -1,11 +1,11 @@
 /* @flow */
-import CONSTANTS from '../constants';
+import CONSTANTS from '../data/constants.json';
 import Entity from '../Entity';
 
-const { EntityTypes } = CONSTANTS;
+const { ENTITY_TYPES } = CONSTANTS;
 
 export default class Adventurer extends Entity {
   constructor() {
-    super(EntityTypes.ADVENTURER);
+    super(ENTITY_TYPES.ADVENTURER);
   }
 }

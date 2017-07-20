@@ -1,6 +1,6 @@
 /* @flow */
 import Chance from 'chance';
-import CONSTANTS from '../constants';
+import CONSTANTS from '../data/constants.json';
 import type { AbilityScores } from './types';
 
 const { ABILITY_SCORES } = CONSTANTS;
