@@ -135,8 +135,8 @@ export default class Adventurer extends Entity {
     this.currentHitpoints = this.getBaseHitpoints();
     this.hitpointMaximum = this.getBaseHitpoints();
     this.temporaryHitpoints = 0;
-    // this.hitDiceValue = this.getHitDiceValue();
-    // this.hitDiceCount = 1;
+    this.hitDiceValue = this.getHitDiceValue();
+    this.hitDiceCount = 1;
     // this.deathSaves = {
     //   successes: 0,
     //   failures: 0,
@@ -225,21 +225,29 @@ export default class Adventurer extends Entity {
   }
 
   getBaseHitpoints(): number {
-    const six = [SORCERER, WIZARD];
-    const eight = [ROGUE, WARLOCK, BARD, DRUID, MONK, CLERIC];
-    const ten = [PALADIN, FIGHTER, RANGER];
-    const twelve = [BARBARIAN];
-    const _class = this.class;
+    const base = this.getHitDiceValue();
     const modifier = this.getModifier(this.abilityScores.CON);
 
-    let base;
-
-    if (~six.indexOf(_class)) base = 6;
-    if (~eight.indexOf(_class)) base = 8;
-    if (~ten.indexOf(_class)) base = 10;
-    if (~twelve.indexOf(_class)) base = 12;
-
     return base + modifier;
+  }
+  
+  getHitDiceValue(): number {
+    const values = {
+      [BARBARIAN]: 12,
+      [BARD]: 8,
+      [CLERIC]: 8,
+      [DRUID]: 8,
+      [FIGHTER]: 10,
+      [MONK]: 8,
+      [PALADIN]: 10,
+      [RANGER]: 10,
+      [ROGUE]: 8,
+      [SORCERER]: 6,
+      [WARLOCK]: 8,
+      [WIZARD]: 6,
+    };
+
+    return values[this.class];
   }
 
   generateClass(): string {
