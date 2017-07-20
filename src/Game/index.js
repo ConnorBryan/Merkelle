@@ -21,6 +21,6 @@ const store = createStore(reducer);
 store.dispatch(ACTION_CREATORS.generateAdventurer());
 store.dispatch(ACTION_CREATORS.generateMonster());
 
-console.log(store.getState());
+console.log(JSON.stringify(store.getState()));
 
 export default reducer;

@@ -30,7 +30,7 @@ export default class Monster extends Entity {
     challengeRating: number = ONE_EIGHTH
   ) {
     super(ENTITY_TYPES.MONSTER);
-
+    
     if (name) {
       const monster = this.getDataFor(name);
 
