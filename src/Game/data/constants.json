@@ -98,8 +98,8 @@
     "CHARLATAN": "CHARLATAN",
     "CRIMINAL": "CRIMINAL",
     "ENTERTAINER": "ENTERTAINER",
-    "FOLK_HERO": "FOLK HERO",
-    "GUILD_ARTISAN": "GUILD ARTISAN",
+    "FOLK_HERO": "FOLK_HERO",
+    "GUILD_ARTISAN": "GUILD_ARTISAN",
     "HERMIT": "HERMIT",
     "NOBLE": "NOBLE",
     "OUTLANDER": "OUTLANDER",
@@ -179,6 +179,12 @@
     "SHORTBOW": "SHORTBOW",
     "QUARTERSTAFF": "QUARTERSTAFF"
   },
+  "EQUIPMENT": {
+    "SHIELD": "SHIELD",
+    "LEATHER_ARMOR": "LEATHER_ARMOR",
+    "SCALE_MAIL": "SCALE_MAIL",
+    "CHAIN_MAIL": "CHAIN_MAIL"    
+  },
   "CHALLENGE_RATING_TYPES": {
     "ONE_EIGHTH": "ONE EIGHTH",
     "ONE_FOURTH": "ONE FOURTH",
@@ -235,6 +241,12 @@
     "RADIANT": "RADIANT",
     "SLASHING": "SLASHING",
     "THUNDER": "THUNDER"
+  },
+  "ARMOR_TYPES": {
+    "SHIELD": "SHIELD",
+    "LIGHT": "LIGHT",
+    "MEDIUM": "MEDIUM",
+    "HEAVY": "HEAVY"
   },
   "ERRORS": {
     "INVALID_MONSTER_NAME": "A monster does not exist with the provided name"

@@ -1,5 +1,4 @@
 import CONSTANTS from '../../data/constants.json';
-import WEAPONS from '../../data/weapons.json';
 import type { AbilityScores } from '../Entity/types';
 
 const {

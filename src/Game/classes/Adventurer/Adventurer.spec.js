@@ -103,4 +103,18 @@ describe('(Adventurer)', () => {
     adventurer.attacks = adventurer.getAttacks();
     expect(adventurer.attacks[0].name).to.equal('swing quarterstaff');
   });
+
+  it('should have the correct starting equipment', () => {
+    adventurer.class = BARBARIAN;
+    adventurer.equipment = adventurer.getStartingEquipment();
+    expect(adventurer.equipment.length).to.equal(0);
+
+    adventurer.class = CLERIC;
+    adventurer.equipment = adventurer.getStartingEquipment();
+    expect(adventurer.equipment.length).to.equal(2);
+
+    adventurer.class = WARLOCK;
+    adventurer.equipment = adventurer.getStartingEquipment();
+    expect(adventurer.equipment.length).to.equal(1);
+  });
 });

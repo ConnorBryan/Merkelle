@@ -1,8 +1,8 @@
 /* @flow */
 import Chance from 'chance';
 import CONSTANTS from '../../data/constants.json';
-import WEAPONS from '../../data/weapons.json';
-import ADVENTURER_ATTACKS from './adventurerAttacks';
+import ATTACKS from './attacks';
+import EQUIPMENT from './equipment';
 import Entity from '../Entity';
 import type { AbilityScores } from '../Entity/types';
 import type {
@@ -128,7 +128,13 @@ const {
   LONGBOW,
   SHORTBOW,
   QUARTERSTAFF,
-} = ADVENTURER_ATTACKS;
+} = ATTACKS;
+const {
+  SHIELD,
+  LEATHER_ARMOR,
+  SCALE_MAIL,
+  CHAIN_MAIL,
+} = EQUIPMENT;
 const CHANCE = new Chance();
 
 export default class Adventurer extends Entity {
@@ -152,6 +158,7 @@ export default class Adventurer extends Entity {
   deathSaves: DeathSaves;
   attacks: Array<AdventurerAttack>;
   spells: Array<Spell>;
+  equipment: Array<Object>;
 
   constructor() {
     super(ADVENTURER);
@@ -182,6 +189,7 @@ export default class Adventurer extends Entity {
     };
     this.attacks = this.getAttacks();
     this.spells = this.getSpells();
+    this.equipment = this.getStartingEquipment();
   }
 
   rollDie(max: number): number {
@@ -324,6 +332,41 @@ export default class Adventurer extends Entity {
     };
 
     return spellsByClass[this.class];
+  }
+
+  getStartingEquipment(): Array<Object> {
+    const equipmentByClass = {
+      [BARBARIAN]: [],
+      [BARD]: [LEATHER_ARMOR],
+      [CLERIC]: [SCALE_MAIL, SHIELD],
+      [DRUID]: [LEATHER_ARMOR, SHIELD],
+      [FIGHTER]: [CHAIN_MAIL, SHIELD],
+      [MONK]: [],
+      [PALADIN]: [CHAIN_MAIL, SHIELD],
+      [RANGER]: [SCALE_MAIL],
+      [ROGUE]: [LEATHER_ARMOR],
+      [SORCERER]: [],
+      [WARLOCK]: [LEATHER_ARMOR],
+      [WIZARD]: [],
+    };
+
+    const equipmentByBackground = {
+      [ACOLYTE]: [],
+      [CHARLATAN]: [],
+      [CRIMINAL]: [],
+      [ENTERTAINER]: [],
+      [FOLK_HERO]: [],
+      [GUILD_ARTISAN]: [],
+      [HERMIT]: [],
+      [NOBLE]: [],
+      [OUTLANDER]: [],
+      [SAGE]: [],
+      [SAILOR]: [],
+      [SOLDIER]: [],
+      [URCHIN]: [],
+    };
+
+    return [...equipmentByClass[this.class], ...equipmentByBackground[this.background]];
   }
 
   generateClass(): string {
