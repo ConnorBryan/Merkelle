@@ -27,11 +27,14 @@ export type DeathSaves = {
   failures: number;
 }
 
-export type Attack = {
+export type AdventurerAttack = {
   name: string;
-  toHit: number;
-  hit: Array<number>;
+  weaponType: string;
+  attackType: string;
+  targetCount: number;
+  damage: number;
   hitType: string;
+  finesse: ?boolean;
 }
 
 export type Spell = {
@@ -66,7 +69,7 @@ export type AdventurerData = {
   hitDiceValue: number;
   hitDiceCount: number;
   deathSaves: DeathSaves;
-  attacks: Array<Attack>;
+  attacks: Array<AdventurerAttack>;
   spells: Array<Spell>;
   equipment: Array<Item>;
 }

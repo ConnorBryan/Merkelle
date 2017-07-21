@@ -93,4 +93,14 @@ describe('(Adventurer)', () => {
     adventurer.abilityScores.CON = 14;
     expect(adventurer.getBaseHitpoints()).to.equal(14);
   });
+
+  it('should have the correct initial attacks', () => {
+    adventurer.class = BARBARIAN;
+    adventurer.attacks = adventurer.getAttacks();
+    expect(adventurer.attacks[0].name).to.equal('swing greataxe');
+
+    adventurer.class = WIZARD;
+    adventurer.attacks = adventurer.getAttacks();
+    expect(adventurer.attacks[0].name).to.equal('swing quarterstaff');
+  });
 });

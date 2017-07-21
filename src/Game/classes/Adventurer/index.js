@@ -1,14 +1,16 @@
 /* @flow */
 import Chance from 'chance';
 import CONSTANTS from '../../data/constants.json';
+import WEAPONS from '../../data/weapons.json';
+import ADVENTURER_ATTACKS from './adventurerAttacks';
 import Entity from '../Entity';
 import type { AbilityScores } from '../Entity/types';
 import type {
   Skills,
   DeathSaves,
-  Attack,
+  AdventurerAttack,
   Spell,
-  Item
+  Item,
 } from './types';
 
 const {
@@ -88,7 +90,46 @@ const {
     SURVIVAL,
   },
   SKILL_LIST,
+  WEAPON_TYPES: {
+    SIMPLE,
+    MARTIAL,
+  },
+  DAMAGE_TYPES: {
+    ACID,    
+    BLUDGEONING,
+    COLD,
+    FIRE,
+    FORCE,
+    LIGHTNING,
+    NECROTIC,
+    PIERCING,
+    POISON,
+    PSYCHIC,
+    RADIANT,
+    SLASHING,
+    THUNDER,
+  },
+  ATTACK_TYPES: {
+    MELEE,
+    RANGED,
+  },
 } = CONSTANTS;
+const {
+  RAPIER,
+  GREATAXE,
+  HANDAXE,
+  DAGGER,
+  MACE,
+  LIGHT_CROSSBOW,
+  SCIMITAR,
+  GREATSWORD,
+  SHORTSWORD,
+  LANCE,
+  JAVELIN,
+  LONGBOW,
+  SHORTBOW,
+  QUARTERSTAFF,
+} = ADVENTURER_ATTACKS;
 const CHANCE = new Chance();
 
 export default class Adventurer extends Entity {
@@ -110,7 +151,7 @@ export default class Adventurer extends Entity {
   hitDiceValue: number;
   hitDiceCount: number;
   deathSaves: DeathSaves;
-  attacks: Array<Attack>;
+  attacks: Array<AdventurerAttack>;
   spells: Array<Spell>;
   equipment: Array<Item>;
 
@@ -137,11 +178,11 @@ export default class Adventurer extends Entity {
     this.temporaryHitpoints = 0;
     this.hitDiceValue = this.getHitDiceValue();
     this.hitDiceCount = 1;
-    // this.deathSaves = {
-    //   successes: 0,
-    //   failures: 0,
-    // };
-    // this.attacks = this.getAttacks();
+    this.deathSaves = {
+      successes: 0,
+      failures: 0,
+    };
+    this.attacks = this.getAttacks();
     // this.spells = this.getSpells();
     // this.equipment = this.getEquipment();
   }
@@ -248,6 +289,25 @@ export default class Adventurer extends Entity {
     };
 
     return values[this.class];
+  }
+
+  getAttacks(): Array<AdventurerAttack> {
+    const attacksByClass = {
+      [BARBARIAN]: [GREATAXE, HANDAXE],
+      [BARD]: [RAPIER, DAGGER],
+      [CLERIC]: [MACE, LIGHT_CROSSBOW],
+      [DRUID]: [SCIMITAR],
+      [FIGHTER]: [GREATSWORD, LIGHT_CROSSBOW],
+      [MONK]: [SHORTSWORD],
+      [PALADIN]: [LANCE, JAVELIN],
+      [RANGER]: [SHORTSWORD, LONGBOW],
+      [ROGUE]: [RAPIER, SHORTBOW],
+      [SORCERER]: [LIGHT_CROSSBOW, DAGGER],
+      [WARLOCK]: [LIGHT_CROSSBOW, DAGGER],
+      [WIZARD]: [QUARTERSTAFF],
+    };
+    
+    return attacksByClass[this.class];
   }
 
   generateClass(): string {

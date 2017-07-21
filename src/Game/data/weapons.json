@@ -1,0 +1,7 @@
+{
+  "GREATAXE": {
+    "damageType": "SLASHING",
+    "attackType": "MELEE",
+    "damage": 12
+  }
+}
