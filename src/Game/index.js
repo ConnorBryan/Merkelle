@@ -1,9 +1,12 @@
 /* @flow */
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import ACTION_HANDLERS from './actionHandlers';
 import type { GameState, Action } from './types';
 import handlers from './handlers';
-import ACTION_CREATORS from './actionCreators';
 import monsters from './data/monsters.json';
+
+const { initializeWorldmap, tick } = ACTION_HANDLERS;
 
 const initialState: GameState = {
   mostRecentEntity: null,
@@ -16,10 +19,13 @@ const reducer = (state: GameState = initialState, action: Action): GameState => 
     : state;
 };
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
 
-store.dispatch(ACTION_CREATORS.generateAdventurer());
+store.dispatch(initializeWorldmap());
 
-console.log(JSON.stringify(store.getState()));
+const GAME = { store, tick };
 
-export default reducer;
+export default GAME;

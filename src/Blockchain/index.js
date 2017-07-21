@@ -1,6 +1,9 @@
 /* @flow */
 import CryptoJS from 'crypto-js';
+import GAME from '../Game';
 import type { BlockConfig } from './types';
+
+const { store, tick } = GAME;
 
 export class Block {
   index: number;
@@ -25,22 +28,21 @@ export class Block {
   }
 }
 
-export type GameState = {}
-
 export default class Blockchain {
   chain: Array<Block>;
 
   constructor() {
-    this.chain = [this.getGenesisBlock({})];
+    this.store = store;
+    this.chain = [this.getGenesisBlock()];
   }
 
-  getGenesisBlock = (initialGameState: GameState): Block => (
+  getGenesisBlock = (): Block => (
     new Block({
       index: 0,
       hash: 'merkelle',
       previousHash: '0',
       timestamp: 1234567890,
-      data: JSON.stringify({ transactions: [], gameState: initialGameState }),
+      data: JSON.stringify(this.store.getState()),
     })
   )
 
@@ -55,17 +57,19 @@ export default class Blockchain {
       index,
       previousHash,
       timestamp,
-      data
+      data,
     } = block;
 
     return this.calculateHash(index, previousHash, timestamp, data);
   }
 
   generateNextBlock = (): Block => {
+    this.store.dispatch(tick());
+
     const previousBlock = this.getMostRecentBlock();
     const nextIndex = previousBlock.index + 1;
     const nextTimestamp = new Date().getTime() / 1000;
-    const nextData = 'add me';
+    const nextData = JSON.stringify(this.store.getState());
     const nextHash = this.calculateHash(nextIndex, previousBlock.hash, nextTimestamp, nextData);
 
     return new Block({
