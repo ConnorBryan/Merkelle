@@ -45,11 +45,6 @@ export type Spell = {
   effect: Function;
 }
 
-export type Item = {
-  type: string;
-  value: number;
-}
-
 export type AdventurerData = {
   name: string;
   class: string;
@@ -71,5 +66,4 @@ export type AdventurerData = {
   deathSaves: DeathSaves;
   attacks: Array<AdventurerAttack>;
   spells: Array<Spell>;
-  equipment: Array<Item>;
 }

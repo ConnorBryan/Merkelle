@@ -153,7 +153,6 @@ export default class Adventurer extends Entity {
   deathSaves: DeathSaves;
   attacks: Array<AdventurerAttack>;
   spells: Array<Spell>;
-  equipment: Array<Item>;
 
   constructor() {
     super(ADVENTURER);
@@ -183,8 +182,7 @@ export default class Adventurer extends Entity {
       failures: 0,
     };
     this.attacks = this.getAttacks();
-    // this.spells = this.getSpells();
-    // this.equipment = this.getEquipment();
+    this.spells = this.getSpells();
   }
 
   rollDie(max: number): number {
@@ -308,6 +306,25 @@ export default class Adventurer extends Entity {
     };
     
     return attacksByClass[this.class];
+  }
+
+  getSpells(): Array<Spell> {
+    const spellsByClass = {
+      [BARBARIAN]: [],
+      [BARD]: [],
+      [CLERIC]: [],
+      [DRUID]: [],
+      [FIGHTER]: [],
+      [MONK]: [],
+      [PALADIN]: [],
+      [RANGER]: [],
+      [ROGUE]: [],
+      [SORCERER]: [],
+      [WARLOCK]: [],
+      [WIZARD]: [],
+    };
+
+    return spellsByClass[this.class];
   }
 
   generateClass(): string {
