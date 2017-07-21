@@ -10,7 +10,6 @@ import type {
   DeathSaves,
   AdventurerAttack,
   Spell,
-  Item,
 } from './types';
 
 const {
