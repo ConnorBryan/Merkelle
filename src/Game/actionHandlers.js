@@ -2,15 +2,14 @@
 import ACTION_CREATORS from './actionCreators';
 
 const {
+  generateWorldmap,
   generateAdventurer,
   generateMonster,
 } = ACTION_CREATORS;
 
-const NOOP = () => {};
-
 const ACTION_HANDLERS = {
   initializeWorldmap: (): Function => (dispatch: Function): void => {
-    dispatch(generateAdventurer());
+    dispatch(generateWorldmap());
   },
   tick: (): Function => (dispatch: Function): void => {
     dispatch(generateMonster());

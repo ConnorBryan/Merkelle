@@ -1,4 +1,5 @@
 /* @flow */
+import Worldmap from './classes/Worldmap';
 import Entity from './classes/Entity';
 
 export type Action = {
@@ -7,6 +8,7 @@ export type Action = {
 }
 
 export type GameState = {
+  worldmap: ?Worldmap,
   mostRecentEntity: ?number,
   entitiesById: Array<Entity>,
 }

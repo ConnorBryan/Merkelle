@@ -9,6 +9,7 @@ import monsters from './data/monsters.json';
 const { initializeWorldmap, tick } = ACTION_HANDLERS;
 
 const initialState: GameState = {
+  worldmap: null,
   mostRecentEntity: null,
   entitiesById: [],
 };

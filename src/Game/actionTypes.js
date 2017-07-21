@@ -1,6 +1,8 @@
 /* @flow */
+const GENERATE_WORLDMAP: stirng = 'GENERATE_WORLDMAP';
 const GENERATE_ENTITY: string = 'GENERATE_ENTITY';
 
 export default {
+  GENERATE_WORLDMAP,
   GENERATE_ENTITY,
 };
