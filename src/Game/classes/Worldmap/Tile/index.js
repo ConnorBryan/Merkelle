@@ -8,7 +8,7 @@ const {
 const CHANCE = new Chance();
 
 export default class Tile {
-  coordinates: Coordinates;
+  coordinates: Object;
   terrain: ?string;
 
   static generateTerrain() {
@@ -16,7 +16,7 @@ export default class Tile {
     return terrains[CHANCE.integer({ min: 0, max: terrains.length - 1 })];
   }
 
-  constructor(coordinates: Coordinates, terrain: ?string) {
+  constructor(coordinates: Object, terrain: ?string) {
     this.coordinates = coordinates;
     this.terrain = terrain;
   }

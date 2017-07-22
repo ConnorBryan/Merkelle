@@ -39,6 +39,6 @@ export default class Worldmap {
     const row = CHANCE.integer({ min: 0, max: this.rows - 1 });
     const column = CHANCE.integer({ min: 0, max: this.columns - 1 });
 
-    this.grid[row][column] = new Dungeon({ row, column });
+    this.grid[row][column] = new Dungeon({ y: row, x: column });
   }
 }
