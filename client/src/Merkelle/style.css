@@ -1,9 +1,12 @@
 .Worldmap {
-  margin-top: 12rem;
-  margin-left: 12rem;
+  margin-top: -5rem;
+  margin-left: 40rem;
   line-height: 0;
   display: inline-block;
-  transform: perspective(400px) rotateX(45deg) rotateZ(45deg) rotateY(0deg);
+  transform: perspective(700px) rotateX(50deg) rotateZ(45deg) rotateY(0deg);
+  -webkit-box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
 }
 
 .Tile {

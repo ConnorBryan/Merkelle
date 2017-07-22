@@ -13,6 +13,7 @@ const Tile = ({ tile, active, setActiveTile }) => {
     MOUNTAIN: '/mountain.png',
     SWAMP: '/swamp.png',
     UNDERDARK: '/underdark.jpg',
+    TOWN: '/town.png',
   };
 
   return (
@@ -59,6 +60,8 @@ export default class Merkelle extends Component {
           terrain: 'GRASSLAND',
           coordinates: { y: 0, x: 0 },
         },
+        town: null,
+        dungeon: null,
       },
     };
   }
@@ -81,7 +84,13 @@ export default class Merkelle extends Component {
   }
 
   setActiveTile = tile => {
-    this.setState({ active: { tile } });
+    if (tile.terrain === 'TOWN') {
+      this.setState({ active: { tile, town: tile } });
+    } else if (tile.terrain === 'DUNGEON') {
+      this.setState({ active: { tile, dungeon: tile } });
+    } else {
+      this.setState({ active: { tile } });
+    }
   }
 
   render() {
@@ -90,26 +99,48 @@ export default class Merkelle extends Component {
         worldmap: { grid = [] },
       },
       active: {
-        tile = null,
+        tile,
+        town,
+        dungeon,
       },
     } = this.state;
 
     return (
       <div>
+        <h1>Merkelle</h1>
         <Worldmap
           grid={grid}
           activeTile={tile}
           setActiveTile={this.setActiveTile} />
-          {tile && (
+          {tile && !town && !dungeon && (
             <div>
-              Active tile:
+              <strong>Active tile: </strong>
               <br />
               Terrain:
               {tile.terrain}
               <br />
               Coordinates:
-              {tile.coordinates.x}
-              {tile.coordinates.y}
+              {tile.coordinates.x}, {tile.coordinates.y}
+            </div>
+          )}
+          {town && (
+            <div>
+              <strong>Active town: </strong>
+              <br />
+              {town.name}
+              <br />
+              Coordinates:
+              {town.coordinates.x}, {town.coordinates.y}
+            </div>
+          )}
+          {dungeon && (
+            <div>
+              <strong>Active dungeon: </strong>
+              <br />
+              {dungeon.name}
+              <br />
+              Coordinates:
+              {dungeon.coordinates.x}, {dungeon.coordinates.y}
             </div>
           )}
       </div>

@@ -1,11 +1,15 @@
 /* @flow */
+import Chance from 'chance';
 import type { AdventurerData } from '../../../Adventurer/types';
 import Monster from '../../../Monster';
 import Tile from '../index';
 import Trap from './Trap';
 import Encounter from './Encounter';
 
+const CHANCE = new Chance();
+
 export default class Dungeon extends Tile {
+  name: string;
   traps: Array<Trap>;
   easy: Encounter;
   medium: Encounter;
@@ -17,6 +21,7 @@ export default class Dungeon extends Tile {
   }
 
   randomize(): void {
+    this.name = CHANCE.city();
     this.generateTraps();
     this.generateEncounters();
   }

@@ -2,6 +2,7 @@
 import Chance from 'chance';
 import Tile from './Tile';
 import Dungeon from './Tile/Dungeon';
+import Town from './Tile/Town';
 
 const CHANCE: Chance = new Chance();
 
@@ -19,7 +20,13 @@ export default class Worldmap {
     this.grid = [];
 
     this.generateTiles();
-    this.generateDungeon();
+  }
+
+  getCoordinates(): Object {
+    const row: number = CHANCE.integer({ min: 0, max: this.rows - 1 });
+    const column: number = CHANCE.integer({ min: 0, max: this.columns - 1 });
+
+    return { y: row, x: column };
   }
 
   generateTiles(): void {
@@ -33,12 +40,19 @@ export default class Worldmap {
       }
       this.grid.push(row);
     }
+    this.generateDungeon();
+    this.generateTown();
   }
 
   generateDungeon(): void {
-    const row: number = CHANCE.integer({ min: 0, max: this.rows - 1 });
-    const column: number = CHANCE.integer({ min: 0, max: this.columns - 1 });
+    const { y, x } = this.getCoordinates();
 
-    this.grid[row][column] = new Dungeon({ y: row, x: column });
+    this.grid[y][x] = new Dungeon({ y, x });
+  }
+
+  generateTown(): void {
+    const { y, x } = this.getCoordinates();
+
+    this.grid[y][x] = new Town({ y, x });
   }
 }
