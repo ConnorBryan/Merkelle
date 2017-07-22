@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 
-const Tile = ({ tile }) => {
+const Tile = ({ tile, active, setActiveTile }) => {
   const { terrain } = tile;
   const terrains = {
     DUNGEON: '/dungeon.png',
@@ -9,27 +9,31 @@ const Tile = ({ tile }) => {
 
   return (
     <img
+      className={`Tile ${active ? 'Tile-active' : ''}`}
       width='64'
       height='64'
-      src={terrains[terrain] || '/grass.png'} />
+      src={terrains[terrain] || '/grass.png'}
+      onClick={() => setActiveTile(tile)} />
   );
 };
 
-const Worldmap = ({ grid }) => (
-  <div className="Worldmap">
-    <p>
+const Worldmap = ({ grid, activeTile, setActiveTile }) => (
+  <span className="Worldmap">
+    <div>
       {grid.map((row, i) => (
         <span key={i}>
           {row.map((tile, i) => (
             <Tile
               key={i}
-              tile={tile} />
+              tile={tile}
+              active={activeTile.coordinates.x === tile.coordinates.x && activeTile.coordinates.y === tile.coordinates.y}
+              setActiveTile={setActiveTile} />
           ))}
           <br />
         </span>
       ))}
-    </p>
-  </div>
+    </div>
+  </span>
 );
 
 export default class Merkelle extends Component {
@@ -40,6 +44,12 @@ export default class Merkelle extends Component {
       game: {
         worldmap: {
           grid: [],
+        },
+      },
+      active: {
+        tile: {
+          terrain: 'GRASSLAND',
+          coordinates: { y: 0, x: 0 },
         },
       },
     };
@@ -62,16 +72,38 @@ export default class Merkelle extends Component {
     return blockchain[blockchain.length - 1];
   }
 
+  setActiveTile = tile => {
+    this.setState({ active: { tile } });
+  }
+
   render() {
     const {
       game: {
         worldmap: { grid = [] },
       },
+      active: {
+        tile = null,
+      },
     } = this.state;
-    console.log(grid);
+
     return (
       <div>
-        <Worldmap grid={grid} />
+        <Worldmap
+          grid={grid}
+          activeTile={tile}
+          setActiveTile={this.setActiveTile} />
+          {tile && (
+            <div>
+              Active tile:
+              <br />
+              Terrain:
+              {tile.terrain}
+              <br />
+              Coordinates:
+              {tile.coordinates.x}
+              {tile.coordinates.y}
+            </div>
+          )}
       </div>
     );
   }

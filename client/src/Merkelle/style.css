@@ -1,3 +1,24 @@
 .Worldmap {
+  margin-top: 12rem;
+  margin-left: 12rem;
   line-height: 0;
+  display: inline-block;
+  transform: perspective(400px) rotateX(45deg) rotateZ(45deg) rotateY(0deg);
+}
+
+.Tile {
+  box-sizing: border-box;
+}
+
+.Tile:hover {
+  cursor: pointer;
+  border: 1px solid blue;
+}
+
+.Tile-active {
+  border: 1px solid orange;
+}
+
+.Tile-active:hover {
+  border: 1px solid orange;
 }
