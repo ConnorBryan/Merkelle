@@ -7,9 +7,9 @@ describe('(Worldmap)', () => {
 
   beforeEach(() => worldmap = new Worldmap());
   
-  it('should default to a 3x3 grid when supplied no arguments', () => {
-    expect(worldmap.rows).to.equal(3);  
-    expect(worldmap.columns).to.equal(3);  
+  it('should default to a 5X5 grid when supplied no arguments', () => {
+    expect(worldmap.rows).to.equal(5);
+    expect(worldmap.columns).to.equal(5);
   });
 
   it('should be comprised entirely of Tiles', () => {

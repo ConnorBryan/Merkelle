@@ -1,7 +1,9 @@
 /* @flow */
 import Chance from 'chance';
 import Tile from './Tile';
-import type { Coordinates } from './types';
+import Dungeon from './Tile/Dungeon';
+
+const CHANCE = new Chance();
 
 export default class Worldmap {
   rows: number;
@@ -9,14 +11,15 @@ export default class Worldmap {
   grid: Array<Array<Tile>>;
 
   constructor(
-    rows: number = 3,
-    columns: number = 3
+    rows: number = 5,
+    columns: number = 5
   ) {
     this.rows = rows;
     this.columns = columns;
     this.grid = [];
 
     this.generateTiles();
+    this.generateDungeon();
   }
 
   generateTiles(): void {
@@ -30,5 +33,12 @@ export default class Worldmap {
       }
       this.grid.push(row);
     }
+  }
+
+  generateDungeon(): void {
+    const row = CHANCE.integer({ min: 0, max: this.rows - 1 });
+    const column = CHANCE.integer({ min: 0, max: this.columns - 1 });
+
+    this.grid[row][column] = new Dungeon({ row, column });
   }
 }
