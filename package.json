@@ -8,7 +8,8 @@
     "build": "rm -rf lib/ && mkdir lib/ && babel src -d lib",
     "prepublish": "yarn run build",
     "go": "yarn run build && nodejs lib/",
-    "game": "yarn run build && nodejs lib/Game"
+    "game": "yarn run build && nodejs lib/Game",
+    "client": "cd ./client && yarn start"
   },
   "author": "Connor Bryan",
   "license": "ISC",
