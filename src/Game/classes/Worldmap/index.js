@@ -3,7 +3,7 @@ import Chance from 'chance';
 import Tile from './Tile';
 import Dungeon from './Tile/Dungeon';
 
-const CHANCE = new Chance();
+const CHANCE: Chance = new Chance();
 
 export default class Worldmap {
   rows: number;
@@ -11,8 +11,8 @@ export default class Worldmap {
   grid: Array<Array<Tile>>;
 
   constructor(
-    rows: number = 5,
-    columns: number = 5
+    rows: number = 8,
+    columns: number = 8
   ) {
     this.rows = rows;
     this.columns = columns;
@@ -36,8 +36,8 @@ export default class Worldmap {
   }
 
   generateDungeon(): void {
-    const row = CHANCE.integer({ min: 0, max: this.rows - 1 });
-    const column = CHANCE.integer({ min: 0, max: this.columns - 1 });
+    const row: number = CHANCE.integer({ min: 0, max: this.rows - 1 });
+    const column: number = CHANCE.integer({ min: 0, max: this.columns - 1 });
 
     this.grid[row][column] = new Dungeon({ y: row, x: column });
   }

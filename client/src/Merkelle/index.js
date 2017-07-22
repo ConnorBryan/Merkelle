@@ -5,6 +5,14 @@ const Tile = ({ tile, active, setActiveTile }) => {
   const { terrain } = tile;
   const terrains = {
     DUNGEON: '/dungeon.png',
+    GRASSLAND: '/grass.png',
+    ARCTIC: '/arctic.png',
+    COAST: '/coast.jpg',
+    DESERT: '/desert.png',
+    FOREST: '/forest.jpg',
+    MOUNTAIN: '/mountain.png',
+    SWAMP: '/swamp.png',
+    UNDERDARK: '/underdark.jpg',
   };
 
   return (
