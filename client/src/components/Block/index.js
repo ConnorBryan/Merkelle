@@ -43,7 +43,7 @@ export default class extends Component {
     height: `${this.props.size * 0.98}rem`,
     display: 'block',
     position: 'absolute',
-    border: '1px solid black',
+    border: `1px solid ${this.props.active ? 'orange' : 'blue'}`,
   })
 
   generateFaces = () => [

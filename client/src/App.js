@@ -42,11 +42,31 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.pollForBlockchain();
+    this.pollingForBlockchain = setInterval(this.pollForBlockchain, 2000);
+  }
+
+  componentWillUnmount() {
+    this.pollingForBlockchain = undefined;
+  }
+
+  pollForBlockchain = () => (
     fetch('http://localhost:3001/blocks')
       .then(rawData => rawData.json())
-      .then(blockchain => this.setState({ blockchain }))
-      .catch(err => document.write(err));
-  }
+      .then(blockchain => {
+        if (this.state.blockchain.length == 0) {
+          return this.setState({ blockchain });
+        }
+
+        const mostRecentBlock = blockchain[blockchain.length - 1];
+        const ownMostRecentBlock = this.state.blockchain[this.state.blockchain.length - 1];
+
+        if (mostRecentBlock.hash !== ownMostRecentBlock.hash) {
+          return this.setState({ blockchain });
+        }
+      })
+      .catch(err => document.write(err))
+  )
 
   render() {
     const { blockchain } = this.state;
