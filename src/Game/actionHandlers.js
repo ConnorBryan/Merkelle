@@ -10,6 +10,7 @@ const {
 const ACTION_HANDLERS = {
   initializeWorldmap: (): Function => (dispatch: Function): void => {
     dispatch(generateWorldmap());
+    dispatch(generateAdventurer());
   },
   tick: (): Function => (dispatch: Function): void => {
     dispatch(generateMonster());

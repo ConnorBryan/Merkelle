@@ -1,0 +1,44 @@
+@keyframes spinning {
+  from { transform: rotateY(0deg) }
+  to { transform: rotateY(360deg) }
+}
+
+.container {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px;
+}
+
+#cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  animation-name: spinning;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+#cube figure {
+  margin: 0;
+  width: 196px;
+  height: 196px;
+  display: block;
+  position: absolute;
+  border: 2px solid black;
+}
+
+#cube .front  { transform: rotateY(   0deg ) translateZ( 100px ); }
+#cube .back   { transform: rotateX( 180deg ) translateZ( 100px ); }
+#cube .right  { transform: rotateY(  90deg ) translateZ( 100px ); }
+#cube .left   { transform: rotateY( -90deg ) translateZ( 100px ); }
+#cube .top    { transform: rotateX(  90deg ) translateZ( 100px ); }
+#cube .bottom { transform: rotateX( -90deg ) translateZ( 100px ); }
+
+#cube .worldmap {
+  width: 144px;
+  height: 144px;
+  margin-top: 32px;
+  transform: rotateX(50deg) rotateZ(45deg) rotateY(0deg);
+}

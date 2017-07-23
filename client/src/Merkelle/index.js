@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cube from './components/Cube';
 import './style.css';
 
 const Tile = ({ tile, active, setActiveTile }) => {
@@ -108,6 +109,7 @@ export default class Merkelle extends Component {
     return (
       <div>
         <h1>Merkelle</h1>
+        <Cube />
         <Worldmap
           grid={grid}
           activeTile={tile}
