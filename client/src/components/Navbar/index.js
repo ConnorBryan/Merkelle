@@ -6,8 +6,9 @@ import './style.css';
 export default props => (
   <Menu
     attached='bottom'>
-    {props.screens.map(screen => (
+    {props.screens.map((screen, i) => (
       <NavLink
+        key={i}
         to={screen.link}
         activeClassName='active'>
         <Menu.Item className='fancy'>

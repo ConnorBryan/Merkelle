@@ -11,7 +11,6 @@ import './App.css';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 
-import HomeView from './components/HomeView';
 import BlockchainView from './components/BlockchainView';
 import WorldmapView from './components/WorldmapView';
 import AdventurersView from './components/AdventurersView';
@@ -35,7 +34,23 @@ const screens = [
 ];
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      blockchain: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/blocks')
+      .then(rawData => rawData.json())
+      .then(blockchain => this.setState({ blockchain }))
+      .catch(err => document.write(err));
+  }
+
   render() {
+    const { blockchain } = this.state;
+
     return (
       <Router>
         <Container>
@@ -51,7 +66,7 @@ class App extends Component {
                   exact />
                 <Route
                   path='/blockchain'
-                  component={BlockchainView}  />
+                  render={() => <BlockchainView blockchain={blockchain} />}  />
                 <Route
                   path='/worldmap'
                   component={WorldmapView}  />
