@@ -15,6 +15,13 @@ import BlockchainView from './components/BlockchainView';
 import WorldmapView from './components/WorldmapView';
 import AdventurersView from './components/AdventurersView';
 
+const isLocalhost = window.location.href.indexOf('localhost') > -1;
+
+const endpoints = {
+  blocks: isLocalhost ? 'http://localhost:3001/blocks' : 'https://merkelle.com/api/blocks',
+  mineBlock: isLocalhost ? 'http://localhost:3001/mineBlock' : 'https://merkelle.com/api/mineBlock',
+};
+
 const screens = [
   {
     link: '/blockchain',
@@ -50,19 +57,19 @@ class App extends Component {
     this.pollingForBlockchain = undefined;
   }
 
-  mineBlock = (mine = 'http://localhost:3001/mineBlock') => (
-    fetch('https://localhost:3001/mineBlock', {
+  mineBlock = () => (
+    fetch(endpoints.mineBlock, {
       method: 'POST',
       body: '',
     })
       .then(response => response.json())
       .catch(err => {
-        this.mineBlock('https://merkelle.com/api/mineBlock');
+        console.error(err);
       })
   )
 
-  pollForBlockchain = (blocks = 'http://localhost:3001/blocks') => (
-    fetch(blocks)
+  pollForBlockchain = () => (
+    fetch(endpoints.blocks)
       .then(rawData => rawData.json())
       .then(blockchain => {
         if (this.state.blockchain.length === 0) {
@@ -77,9 +84,7 @@ class App extends Component {
         }
       })
       .catch(err => {
-        this.pollingForBlockchain = undefined;
-        this.pollForBlockchain('https://merkelle.com/api/blocks');
-        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('https://merkelle.com/api/blocks'), 2000);
+        console.error(err);
       })
   )
 
