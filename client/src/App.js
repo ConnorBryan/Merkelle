@@ -50,18 +50,18 @@ class App extends Component {
     this.pollingForBlockchain = undefined;
   }
 
-  mineBlock = (mine = 'http://localhost:3001/mineBlock') => (
-    fetch('http://localhost:3001/mineBlock', {
+  mineBlock = (mine = 'https://localhost:3001/mineBlock') => (
+    fetch('https://localhost:3001/mineBlock', {
       method: 'POST',
       body: '',
     })
       .then(response => response.json())
       .catch(err => {
-        this.mineBlock('http://merkelle.com:3001/mineBlock');
+        this.mineBlock('https://merkelle.com:3001/mineBlock');
       })
   )
 
-  pollForBlockchain = (blocks = 'http://localhost:3001/blocks') => (
+  pollForBlockchain = (blocks = 'https://localhost:3001/blocks') => (
     fetch(blocks)
       .then(rawData => rawData.json())
       .then(blockchain => {
