@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Grid, Image, Segment, Sidebar, Header, List } from 'semantic-ui-react';
+import { Image, Segment, Sidebar, Header, List } from 'semantic-ui-react';
 import WorldmapMenu from '../WorldmapMenu';
 import Worldmap from '../Worldmap';
 
@@ -35,14 +35,16 @@ export default class WorldmapView extends Component {
   }
 
   setActiveTile = tile => {
-    const { coordinates: { y, x}, terrain, name, encounters, traps } = tile;
+    const { coordinates: { y, x}, terrain, name, easy, medium, hard, traps } = tile;
     this.setState({
       tile: {
         coordinates: { y, x },
         terrain,
         name,
-        encounters,
         traps,
+        easy,
+        medium,
+        hard,
         isDungeon: terrain === 'DUNGEON',
         isTown: terrain === 'TOWN',
       },
@@ -51,7 +53,7 @@ export default class WorldmapView extends Component {
 
   render() {
     const { worldmap, tile } = this.state;
-    const { encounters, traps, isDungeon, isTown } = tile;
+    const { easy, medium, hard, traps, isDungeon, isTown } = tile;
 
     return worldmap
       ?
@@ -95,7 +97,31 @@ export default class WorldmapView extends Component {
                     <List.Item>
                       <List.Header>
                         Encounters
-                      </List.Header>  
+                      </List.Header>
+                    </List.Item>
+                    <List.Item>
+                      <List.Header>
+                        Easy
+                      </List.Header>
+                      {easy.monsters.map((monster, i) => (
+                        <p key={i}>{monster.name}</p>
+                      ))}
+                    </List.Item>
+                    <List.Item>
+                      <List.Header>
+                        Medium
+                      </List.Header>
+                      {medium.monsters.map((monster, i) => (
+                        <p key={i}>{monster.name}</p>
+                      ))}
+                    </List.Item>
+                    <List.Item>
+                      <List.Header>
+                        Hard
+                      </List.Header>
+                      {hard.monsters.map((monster, i) => (
+                        <p key={i}>{monster.name}</p>
+                      ))}
                     </List.Item>
                     {/*{encounters.map((encounter, i) => (
                       <p>Encounter</p>

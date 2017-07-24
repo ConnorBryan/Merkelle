@@ -48,6 +48,7 @@ export default ({ worldmap, activeTile, setActiveTile }) => {
                     }
                     onClick={() => setActiveTile(tile)}>
                     <img
+                      alt={terrains[tile.terrain]}
                       src={terrains[tile.terrain]}
                       style={{ boxSizing: 'border-box' }}
                       width={64}
