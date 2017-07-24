@@ -1,7 +1,8 @@
 import React from 'react';
 import { Table, Segment } from 'semantic-ui-react';
+import { capitalizeOnly } from '../../shared/helpers';
 
-export default ({ abilityScores, savingThrows }) => (
+export default ({ skills }) => (
   <Segment>
     <Table
       basic='very'
@@ -10,19 +11,18 @@ export default ({ abilityScores, savingThrows }) => (
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>
-            Ability Scores
+            Skills
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {Object.keys(abilityScores).map((abilityScore, i) => (
+        {Object.keys(skills).map((skill, i) => (
           <Table.Row key={i}>
             <Table.Cell>
-              {abilityScore}
+              {capitalizeOnly(skill)}
             </Table.Cell>
             <Table.Cell>
-              {abilityScores[abilityScore]} 
-              <span style={{ color: savingThrows[abilityScore] > -1 ? 'green' : 'red' }}> ({savingThrows[abilityScore]}) </span>
+              <span style={{ color: skills[skill] > -1 ? 'green' : 'red' }}>{skills[skill]}</span>
             </Table.Cell>
           </Table.Row>
         ))}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Image, Icon, Item, Progress, Checkbox } from 'semantic-ui-react';
+import { capitalizeOnly, constantToWord } from '../../shared/helpers';
 import AbilityScores from '../AbilityScores';
+import Skills from '../Skills';
 
 const AdventurerInfo = ({ name, race, _class }) => (
   <Item.Group>
@@ -14,7 +16,7 @@ const AdventurerInfo = ({ name, race, _class }) => (
           {name}
         </Item.Header>
         <Item.Description>
-          {race} {_class}
+          {capitalizeOnly(race)} {capitalizeOnly(_class)}
         </Item.Description>
       </Item.Content>
     </Item>
@@ -131,7 +133,9 @@ export default ({ adventurer }) => {
         </Grid.Column>
 
         <Grid.Column width={6}>
-          Background, Alignment
+          Background: {capitalizeOnly(adventurer.background)}
+          <br />
+          Alignment: {constantToWord(adventurer.alignment)}
         </Grid.Column>
 
       </Grid.Row>
@@ -151,22 +155,22 @@ export default ({ adventurer }) => {
         </Grid.Column>
 
         <Grid.Column width={2}>
-          Ins, Prof
+          Proficiency: {adventurer.proficiencyBonus}
         </Grid.Column>
 
       </Grid.Row>
 
       <Grid.Row>
 
-        <Grid.Column width={3}>
-          <AbilityScores abilityScores={adventurer.abilityScores} />
+        <Grid.Column width={4}>
+          <AbilityScores abilityScores={adventurer.abilityScores} savingThrows={adventurer.savingThrows} />
         </Grid.Column>
 
-        <Grid.Column width={3}>
-          Skills
+        <Grid.Column width={4}>
+          <Skills skills={adventurer.skills} />
         </Grid.Column>
 
-        <Grid.Column width={6}>
+        <Grid.Column width={4}>
           ATK, SPL, EQ
         </Grid.Column>
 
