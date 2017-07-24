@@ -112,7 +112,7 @@ class App extends Component {
                   render={() => <WorldmapView blockchain={blockchain} />}  />
                 <Route
                   path='/adventurers'
-                  component={AdventurersView} />
+                  render={() => <AdventurersView blockchain={blockchain} />} />
                 </Switch>
             </Segment>
         </Container>
