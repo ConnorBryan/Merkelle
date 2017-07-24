@@ -109,7 +109,7 @@ export default class extends Component {
     return (
       <section
         style={container}
-        onClick={() => setActiveBlock(this.props.index)}
+        onClick={() => !this.props.displayOnly && setActiveBlock(this.props.index)}
         onMouseEnter={this.toggleBorderColor}
         onMouseLeave={this.toggleBorderColor}>
         <div style={cube}>

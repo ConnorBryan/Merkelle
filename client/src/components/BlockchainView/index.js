@@ -29,8 +29,9 @@ export default class BlockchainView extends Component {
     const { initialSelectionPerformed } = this.state;
     
     if (!initialSelectionPerformed) {
-      setTimeout(() => {
-        document.getElementById('blockchain').scrollLeft = 99999999;
+      this.aboutToScroll = setTimeout(() => {
+        const blockchain = document.getElementById('blockchain');
+        if (blockchain) blockchain.scrollLeft = 99999999;
       }, 500);
     }
   }
@@ -41,8 +42,13 @@ export default class BlockchainView extends Component {
     if (!initialSelectionPerformed) {
       this.setActiveBlock();
       this.setState({ initialSelectionPerformed: true });
-      document.getElementById('blockchain').scrollLeft = 99999999;
+      const blockchain = document.getElementById('blockchain');
+        if (blockchain) blockchain.scrollLeft = 99999999;
     }
+  }
+
+  componentWillUnmount() {
+    this.aboutToScroll = undefined;
   }
 
   setActiveBlock = (index = this.props.blockchain.length - 1) => {
@@ -79,7 +85,11 @@ export default class BlockchainView extends Component {
             <Item.Group>
               <Item style={{ paddingTop: '2.5rem', paddingBottom: '2.5rem', paddingLeft: '5rem' }}>
                 <Item.Content>
-                  <Block active size={10} data={activeBlock} />
+                  <Block
+                    data={activeBlock}
+                    size={10}
+                    displayOnly
+                    active />
                 </Item.Content>
                 <Item.Content style={{ paddingLeft: '5rem' }}>
                   <Item.Header

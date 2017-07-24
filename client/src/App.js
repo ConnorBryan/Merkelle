@@ -37,7 +37,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      blockchain: [],
+      blockchain: []
     };
   }
 
@@ -89,7 +89,7 @@ class App extends Component {
                   render={() => <BlockchainView blockchain={blockchain} />}  />
                 <Route
                   path='/worldmap'
-                  component={WorldmapView}  />
+                  render={() => <WorldmapView blockchain={blockchain} />}  />
                 <Route
                   path='/adventurers'
                   component={AdventurersView} />

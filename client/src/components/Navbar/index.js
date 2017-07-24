@@ -5,6 +5,7 @@ import './style.css';
 
 export default props => (
   <Menu
+    tabular
     attached='bottom'>
     {props.screens.map((screen, i) => (
       <NavLink
