@@ -10,10 +10,7 @@ export default ({ abilityScores }) => (
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>
-            Ability Score
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            Value
+            Ability Scores
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>

@@ -54,10 +54,10 @@ export default ({ alignment }) => (
     <Item.Group>
       <Item>
         <Item.Image
-          src={alignmentDict[alignment].moralityIcon}
+          src={alignmentDict[alignment].societyIcon}
           size='mini' />
         <Item.Image
-          src={alignmentDict[alignment].societyIcon}
+          src={alignmentDict[alignment].moralityIcon}
           size='mini' />
         <Item.Content verticalAlign='middle'>
           <Item.Header>
