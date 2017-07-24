@@ -15,18 +15,24 @@ const overflowing = {
 const marginLeft = { marginLeft: '5rem' };
 
 export default class BlockchainView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       initialSelectionPerformed: false,
-      activeBlock: null,  
+      activeBlock: this.props.blockchain.length === 0
+        ? { index: 0 }
+        : this.props.blockchain[this.props.blockchain.length - 1],
     };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      document.getElementById('blockchain').scrollLeft = 99999999;
-    }, 500);
+    const { initialSelectionPerformed } = this.state;
+    
+    if (!initialSelectionPerformed) {
+      setTimeout(() => {
+        document.getElementById('blockchain').scrollLeft = 99999999;
+      }, 500);
+    }
   }
 
   componentDidUpdate() {
@@ -35,12 +41,11 @@ export default class BlockchainView extends Component {
     if (!initialSelectionPerformed) {
       this.setActiveBlock();
       this.setState({ initialSelectionPerformed: true });
+      document.getElementById('blockchain').scrollLeft = 99999999;
     }
-
-    document.getElementById('blockchain').scrollLeft = 99999999;
   }
 
-  setActiveBlock(index = this.props.blockchain.length - 1) {
+  setActiveBlock = (index = this.props.blockchain.length - 1) => {
     this.setState({ activeBlock: this.props.blockchain[index] });
   }
 
@@ -60,10 +65,11 @@ export default class BlockchainView extends Component {
                 key={i}
                 style={marginLeft}>
                 <Block
-                  active={i === blockchain.length - 1}
+                  active={i === activeBlock.index}
                   size={8}
                   data={block}
-                  index={block.index} />
+                  index={block.index}
+                  setActiveBlock={this.setActiveBlock} />
               </List.Item>
             ))}
           </List>

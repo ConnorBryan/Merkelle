@@ -44,7 +44,7 @@ export default class extends Component {
     height: `${this.props.size * 0.98}rem`,
     display: 'block',
     position: 'absolute',
-    border: `1px solid ${this.props.active ? 'orange' : this.state.borderColor}`,
+    border: `2px solid ${this.props.active ? 'orange' : this.state.borderColor}`,
   })
 
   toggleBorderColor = () => {
@@ -104,9 +104,12 @@ export default class extends Component {
       cube,
     } = this.state;
 
+    const { setActiveBlock } = this.props;
+
     return (
       <section
         style={container}
+        onClick={() => setActiveBlock(this.props.index)}
         onMouseEnter={this.toggleBorderColor}
         onMouseLeave={this.toggleBorderColor}>
         <div style={cube}>
