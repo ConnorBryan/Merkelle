@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, List, Item, Button, Icon } from 'semantic-ui-react';
+import { Segment, List, Item, Button, Icon, Menu } from 'semantic-ui-react';
 import Block from '../Block';
 
 const overflowing = {
@@ -51,6 +51,13 @@ export default class BlockchainView extends Component {
     this.aboutToScroll = undefined;
   }
 
+  mineBlock() {
+    fetch('http://localhost:3001/mineBlock', {
+      method: 'POST',
+      body: '',
+    })
+  }
+
   setActiveBlock = (index = this.props.blockchain.length - 1) => {
     this.setState({ activeBlock: this.props.blockchain[index] });
   }
@@ -61,6 +68,11 @@ export default class BlockchainView extends Component {
 
     return (
       <div>
+        <Menu attached='top'>
+            <Menu.Item onClick={this.mineBlock}>
+              <Icon name='diamond' /> Mine
+            </Menu.Item>
+          </Menu>
         <Segment
           id='blockchain'
           style={overflowing}
