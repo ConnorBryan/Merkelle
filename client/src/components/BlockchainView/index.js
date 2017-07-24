@@ -51,25 +51,18 @@ export default class BlockchainView extends Component {
     this.aboutToScroll = undefined;
   }
 
-  mineBlock() {
-    fetch('http://localhost:3001/mineBlock', {
-      method: 'POST',
-      body: '',
-    })
-  }
-
   setActiveBlock = (index = this.props.blockchain.length - 1) => {
     this.setState({ activeBlock: this.props.blockchain[index] });
   }
 
   render() {
     const { activeBlock } = this.state;
-    const { blockchain } = this.props;
+    const { blockchain, mineBlock } = this.props;
 
     return (
       <div>
         <Menu attached='top'>
-            <Menu.Item onClick={this.mineBlock}>
+            <Menu.Item onClick={mineBlock}>
               <Icon name='diamond' /> Mine
             </Menu.Item>
           </Menu>

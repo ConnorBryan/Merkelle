@@ -50,6 +50,17 @@ class App extends Component {
     this.pollingForBlockchain = undefined;
   }
 
+  mineBlock = (mine = 'http://localhost:3001/mineBlock') => (
+    fetch('http://localhost:3001/mineBlock', {
+      method: 'POST',
+      body: '',
+    })
+      .then(response => response.json())
+      .catch(err => {
+        this.mineBlock('http://merkelle.com:3001/mineBlock');
+      })
+  )
+
   pollForBlockchain = (blocks = 'http://localhost:3001/blocks') => (
     fetch(blocks)
       .then(rawData => rawData.json())
@@ -90,7 +101,7 @@ class App extends Component {
                   exact />
                 <Route
                   path='/blockchain'
-                  render={() => <BlockchainView blockchain={blockchain} />}  />
+                  render={() => <BlockchainView blockchain={blockchain} mineBlock={this.mineBlock} />}  />
                 <Route
                   path='/worldmap'
                   render={() => <WorldmapView blockchain={blockchain} />}  />
