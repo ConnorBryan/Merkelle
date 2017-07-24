@@ -43,12 +43,13 @@ export default ({ worldmap, activeTile, setActiveTile }) => {
                   <td
                     key={i}
                     style= {rows === y && columns === x
-                        ? { border: `1px solid orange`, boxSizing: 'border-box' }
+                        ? { outline: `1px solid orange`, boxSizing: 'border-box' }
                         : { boxSizing: 'border-box' }
                     }
                     onClick={() => setActiveTile(tile)}>
                     <img
                       src={terrains[tile.terrain]}
+                      style={{ boxSizing: 'border-box' }}
                       width={64}
                       height={64} />
                   </td>

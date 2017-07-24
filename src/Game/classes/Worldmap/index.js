@@ -12,8 +12,8 @@ export default class Worldmap {
   grid: Array<Array<Tile>>;
 
   constructor(
-    rows: number = 8,
-    columns: number = 8
+    rows: number = 4,
+    columns: number = 4
   ) {
     this.rows = rows;
     this.columns = columns;

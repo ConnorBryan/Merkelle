@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Segment, Sidebar, Header, List } from 'semantic-ui-react';
 import WorldmapMenu from '../WorldmapMenu';
 import Worldmap from '../Worldmap';
+
+const difficultyClasses = {
+  'ONE_EIGHTH': '1/8',
+};
 
 export default class WorldmapView extends Component {
   constructor(props) {
@@ -21,33 +25,98 @@ export default class WorldmapView extends Component {
           x: 0,
         },
         terrain: 'GRASSLAND',
+        name: null,
+        encounters: {},
+        traps: [],
       },
+      isDungeon: false,
+      isTown: false,
     };
   }
 
   setActiveTile = tile => {
-    const { coordinates: { y, x}, terrain } = tile;
+    const { coordinates: { y, x}, terrain, name, encounters, traps } = tile;
     this.setState({
       tile: {
         coordinates: { y, x },
         terrain,
+        name,
+        encounters,
+        traps,
+        isDungeon: terrain === 'DUNGEON',
+        isTown: terrain === 'TOWN',
       },
     });
   }
 
   render() {
     const { worldmap, tile } = this.state;
-    
+    const { encounters, traps, isDungeon, isTown } = tile;
+
     return worldmap
       ?
         (
-          <div>
-            <Worldmap
-              worldmap={worldmap}
-              activeTile={tile}
-              setActiveTile={this.setActiveTile} />
-            <WorldmapMenu activeTile={tile} />
-          </div>
+          <Sidebar.Pushable as={Segment}>
+            <Sidebar.Pusher>
+              <Worldmap
+                worldmap={worldmap}
+                activeTile={tile}
+                setActiveTile={this.setActiveTile} />
+              <WorldmapMenu activeTile={tile} />
+            </Sidebar.Pusher>
+            <Sidebar
+              as={Segment}
+              animation='overlay'
+              direction='right'
+              visible={isDungeon || isTown}
+              vertical
+              textAlign='center'>
+              {isDungeon && (
+                <div>
+                  <Image
+                    src='/dungeon.png'
+                    size='small'
+                    shape='circular'
+                    centered />
+                  <Header as='h2'>
+                    {tile.name}
+                  </Header>
+                  <List>
+                    <List.Item>
+                      <List.Header>
+                        Traps
+                      </List.Header>  
+                    </List.Item>
+                    {traps.map((trap, i) => (
+                      <List.Item key={i}>
+                      {trap.name} ({difficultyClasses[trap.difficultyClass]})
+                      </List.Item>
+                    ))}
+                    <List.Item>
+                      <List.Header>
+                        Encounters
+                      </List.Header>  
+                    </List.Item>
+                    {/*{encounters.map((encounter, i) => (
+                      <p>Encounter</p>
+                    ))}*/}
+                  </List>
+                </div>
+              )}
+              {isTown && (
+                <div>
+                  <Image
+                    src='/town.png'
+                    size='small'
+                    shape='circular'
+                    centered />
+                  <Header as='h2'>
+                    {tile.name}
+                  </Header>
+                </div>
+              )}
+            </Sidebar>
+          </Sidebar.Pushable>
         )
       : (
         <Redirect to='/blockchain' />
