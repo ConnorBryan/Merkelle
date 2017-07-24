@@ -82,11 +82,17 @@ export default class BlockchainView extends Component {
                   <Block active size={10} data={activeBlock} />
                 </Item.Content>
                 <Item.Content style={{ paddingLeft: '5rem' }}>
-                  <Item.Header as='h2'>Block #{activeBlock.index}</Item.Header>
-                  <Item.Meta>{activeBlock.timestamp}</Item.Meta>
+                  <Item.Header
+                    className='fancy'
+                    as='h2'>Block #{activeBlock.index}</Item.Header>
+                  <Item.Meta>
+                    <Icon name='time' /> {activeBlock.timestamp}
+                  </Item.Meta>
                   <Item.Description>
-                    Hash: {activeBlock.hash}
-                    Previous Hash: {activeBlock.previousHash}
+                    <br />
+                    <strong className='fancy'><Icon name='cube' /><Icon name='hashtag' /> Hash</strong> <br /> {activeBlock.hash} <br />
+                    <br />
+                    <strong className='fancy'><Icon name='reply all' /><Icon name='hashtag' /> Previous Hash</strong> <br /> {activeBlock.previousHash} <br />
                   </Item.Description>
                   <Item.Extra>
                   <Button>
