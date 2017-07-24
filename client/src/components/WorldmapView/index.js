@@ -16,19 +16,22 @@ export default class WorldmapView extends Component {
       mostRecentBlock,
       worldmap: data && data.worldmap,
       tile: {
-        y: 0,
-        x: 0,
+        coordinates: {
+          y: 0,
+          x: 0,
+        },
+        terrain: 'GRASSLAND',
       },
     };
   }
 
   setActiveTile = tile => {
-    const { coordinates: { y, x} } = tile;
+    const { coordinates: { y, x}, terrain } = tile;
     this.setState({
       tile: {
-        y,
-        x,
-      }
+        coordinates: { y, x },
+        terrain,
+      },
     });
   }
 

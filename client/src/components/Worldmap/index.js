@@ -24,7 +24,7 @@ const compact = {
 };
 
 export default ({ worldmap, activeTile, setActiveTile }) => {
-  const { y, x } = activeTile;
+  const { coordinates: { y, x } } = activeTile;
   let rows = 0;
   let columns = 0;
     
