@@ -1,0 +1,22 @@
+@keyframes wavering {
+  0% {
+    transform: rotateX(50deg) rotateY(0deg) rotateZ(45deg);
+  }
+  50% {
+    transform: rotateX(46deg) rotateY(0deg) rotateZ(43deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(0deg) rotateZ(45deg);
+  }
+}
+
+.Worldmap {
+  line-height: 0;
+  display: inline-block;
+  -webkit-box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 30px 9px rgba(0,0,0,0.75);
+  animation-name: wavering;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Grid, Image } from 'semantic-ui-react';
+import Worldmap from '../Worldmap';
 
-export default class Worldmap extends Component {
+
+export default class WorldmapView extends Component {
   constructor(props) {
     super(props);
     
@@ -14,10 +18,17 @@ export default class Worldmap extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {console.log(this.state)}
-      </div>
-    );
+    const { worldmap } = this.state;
+    
+    return worldmap
+      ?
+        (
+          <div>
+            <Worldmap worldmap={worldmap} />
+          </div>
+        )
+      : (
+        <Redirect to='/blockchain' />
+      )
   }
 }

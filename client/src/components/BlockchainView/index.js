@@ -75,7 +75,8 @@ export default class BlockchainView extends Component {
                   size={8}
                   data={block}
                   index={block.index}
-                  setActiveBlock={this.setActiveBlock} />
+                  setActiveBlock={this.setActiveBlock}
+                  spinning />
               </List.Item>
             ))}
           </List>
@@ -89,7 +90,8 @@ export default class BlockchainView extends Component {
                     data={activeBlock}
                     size={10}
                     displayOnly
-                    active />
+                    active
+                    spinning  />
                 </Item.Content>
                 <Item.Content style={{ paddingLeft: '5rem' }}>
                   <Item.Header

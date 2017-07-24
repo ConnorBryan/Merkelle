@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './style.css';
 
 export default class extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       container: {},
       cube: {},
@@ -28,15 +28,22 @@ export default class extends Component {
     perspective: `${this.props.size * 5}rem`,
   })
 
-  getCubeStyle = () => ({
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    transformStyle: 'preserve-3d',
-    animationName: 'spinning',
-    animationDuration: '8s',
-    animationIterationCount: 'infinite',
-  })
+  getCubeStyle = () => {
+    let style = {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      transformStyle: 'preserve-3d',
+    };
+    if (this.props.spinning) {
+      style = {...style, ...{
+        animationName: 'spinning',
+        animationDuration: '8s',
+        animationIterationCount: 'infinite',
+      }};
+    }
+    return style;
+  }
 
   getFigureStyle = () => ({
     margin: 0,
