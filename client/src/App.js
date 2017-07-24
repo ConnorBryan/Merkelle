@@ -57,7 +57,7 @@ class App extends Component {
     })
       .then(response => response.json())
       .catch(err => {
-        this.mineBlock('https://merkelle.com:3001/mineBlock');
+        this.mineBlock('https://merkelle.com/api/mineBlock');
       })
   )
 
@@ -78,8 +78,8 @@ class App extends Component {
       })
       .catch(err => {
         this.pollingForBlockchain = undefined;
-        this.pollForBlockchain('https://merkelle.com:3001/blocks');
-        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('https://merkelle.com/blocks'), 2000);
+        this.pollForBlockchain('https://merkelle.com/api/blocks');
+        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('https://merkelle.com/api/blocks'), 2000);
       })
   )
 
