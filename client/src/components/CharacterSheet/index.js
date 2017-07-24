@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Image, Icon, Item, Progress } from 'semantic-ui-react';
+import { Grid, Image, Icon, Item, Progress, Checkbox } from 'semantic-ui-react';
 import AbilityScores from '../AbilityScores';
 
 const AdventurerInfo = ({ name, race, _class }) => (
@@ -74,6 +74,49 @@ const AdventurerHPandEXP = ({ currentHitpoints, hitpointMaximum, level, experien
     </Grid>
   );
 };
+const marginRight = { marginRight: '1rem' };
+const DeathSaves = ({ deathSaves }) => (
+  <Grid>
+    <Grid.Row>
+      <Grid.Column width={2}>
+        <Icon name='thumbs up' />
+      </Grid.Column>
+      <Grid.Column width={10}>
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.failures >= 1}
+        />
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.failures >= 2}
+        />
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.failures >= 3}
+        />
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column width={2}>
+        <Icon name='thumbs down' />
+      </Grid.Column>
+      <Grid.Column width={10}>
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.successes >= 1}
+        />
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.successes >= 2}
+        />
+        <Checkbox
+          style={marginRight}
+          checked={deathSaves.successes >= 3}
+        />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+);
 
 export default ({ adventurer }) => {
   return (
@@ -104,7 +147,7 @@ export default ({ adventurer }) => {
         </Grid.Column>
 
         <Grid.Column width={5}>
-          Death, Life
+          <DeathSaves deathSaves={adventurer.deathSaves} />
         </Grid.Column>
 
         <Grid.Column width={2}>
