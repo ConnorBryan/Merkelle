@@ -50,8 +50,8 @@ class App extends Component {
     this.pollingForBlockchain = undefined;
   }
 
-  pollForBlockchain = () => (
-    fetch('http://localhost:3001/blocks')
+  pollForBlockchain = (blocks = 'http://localhost:3001/blocks') => (
+    fetch(blocks)
       .then(rawData => rawData.json())
       .then(blockchain => {
         if (this.state.blockchain.length === 0) {
@@ -65,7 +65,11 @@ class App extends Component {
           return this.setState({ blockchain });
         }
       })
-      .catch(err => document.write(err))
+      .catch(err => {
+        this.pollingForBlockchain = undefined;
+        this.pollForBlockchain('http://merkelle.com:3001/blocks');
+        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('http://merkelle.com/blocks'), 2000);
+      })
   )
 
   render() {
