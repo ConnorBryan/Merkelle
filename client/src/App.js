@@ -78,8 +78,8 @@ class App extends Component {
       })
       .catch(err => {
         this.pollingForBlockchain = undefined;
-        this.pollForBlockchain('http://merkelle.com:3001/blocks');
-        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('http://merkelle.com/blocks'), 2000);
+        this.pollForBlockchain('https://merkelle.com:3001/blocks');
+        this.pollingForBlockchain = setInterval(() => this.pollForBlockchain('https://merkelle.com/blocks'), 2000);
       })
   )
 
