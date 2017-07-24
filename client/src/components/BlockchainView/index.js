@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, List } from 'semantic-ui-react';
+import { Segment, List, Item, Button, Icon } from 'semantic-ui-react';
 import Block from '../Block';
 
 const overflowing = {
@@ -15,6 +15,14 @@ const overflowing = {
 const marginLeft = { marginLeft: '5rem' };
 
 export default class BlockchainView extends Component {
+  constructor() {
+    super();
+    this.state = {
+      initialSelectionPerformed: false,
+      activeBlock: null,  
+    };
+  }
+
   componentDidMount() {
     setTimeout(() => {
       document.getElementById('blockchain').scrollLeft = 99999999;
@@ -22,30 +30,69 @@ export default class BlockchainView extends Component {
   }
 
   componentDidUpdate() {
-      document.getElementById('blockchain').scrollLeft = 99999999;    
+    const { initialSelectionPerformed } = this.state;
+
+    if (!initialSelectionPerformed) {
+      this.setActiveBlock();
+      this.setState({ initialSelectionPerformed: true });
+    }
+
+    document.getElementById('blockchain').scrollLeft = 99999999;
+  }
+
+  setActiveBlock(index = this.props.blockchain.length - 1) {
+    this.setState({ activeBlock: this.props.blockchain[index] });
   }
 
   render() {
+    const { activeBlock } = this.state;
     const { blockchain } = this.props;
 
     return (
-      <Segment
-        id='blockchain'
-        style={overflowing}
-        raised>
-        <List horizontal relaxed>
-          {blockchain.map((block, i) => (
-            <List.Item
-              key={i}
-              style={marginLeft}>
-              <Block
-                active={i === blockchain.length - 1}
-                size={8}
-                data={block} />
-            </List.Item>
-          ))}
-        </List>
-      </Segment>
+      <div>
+        <Segment
+          id='blockchain'
+          style={overflowing}
+          raised>
+          <List horizontal relaxed>
+            {blockchain.map((block, i) => (
+              <List.Item
+                key={i}
+                style={marginLeft}>
+                <Block
+                  active={i === blockchain.length - 1}
+                  size={8}
+                  data={block}
+                  index={block.index} />
+              </List.Item>
+            ))}
+          </List>
+        </Segment>
+        {activeBlock && (
+          <Segment>
+            <Item.Group>
+              <Item style={{ paddingTop: '2.5rem', paddingBottom: '2.5rem', paddingLeft: '5rem' }}>
+                <Item.Content>
+                  <Block active size={10} data={activeBlock} />
+                </Item.Content>
+                <Item.Content style={{ paddingLeft: '5rem' }}>
+                  <Item.Header as='h2'>Block #{activeBlock.index}</Item.Header>
+                  <Item.Meta>{activeBlock.timestamp}</Item.Meta>
+                  <Item.Description>
+                    Hash: {activeBlock.hash}
+                    Previous Hash: {activeBlock.previousHash}
+                  </Item.Description>
+                  <Item.Extra>
+                  <Button>
+                    <Icon name='map' /> View Worldmap
+                  </Button>
+                </Item.Extra>
+                </Item.Content>
+              </Item>
+            </Item.Group>
+          </Segment>
+        )}
+      </div>
     );
   }
 }

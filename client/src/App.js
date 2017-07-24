@@ -54,7 +54,7 @@ class App extends Component {
     fetch('http://localhost:3001/blocks')
       .then(rawData => rawData.json())
       .then(blockchain => {
-        if (this.state.blockchain.length == 0) {
+        if (this.state.blockchain.length === 0) {
           return this.setState({ blockchain });
         }
 

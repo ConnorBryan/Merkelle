@@ -8,11 +8,11 @@ export default class extends Component {
       container: {},
       cube: {},
       figure: {},
+      borderColor: 'blue',
     };
   }
 
   componentDidMount() {
-    const { size } = this.props;    
     this.setState({
       container: this.getContainerStyle(),
       cube: this.getCubeStyle(),
@@ -21,6 +21,7 @@ export default class extends Component {
   }
 
   getContainerStyle = () => ({
+    cursor: 'pointer',
     width: `${this.props.size}rem`,
     height: `${this.props.size}rem`,
     position: 'relative',
@@ -43,16 +44,28 @@ export default class extends Component {
     height: `${this.props.size * 0.98}rem`,
     display: 'block',
     position: 'absolute',
-    border: `1px solid ${this.props.active ? 'orange' : 'blue'}`,
+    border: `1px solid ${this.props.active ? 'orange' : this.state.borderColor}`,
   })
+
+  toggleBorderColor = () => {
+    const { borderColor } = this.state;
+    this.setState({ borderColor: borderColor === 'blue' ? 'orange' : 'blue' });
+  }
 
   generateFaces = () => [
     <figure
       key={'front'}
       style={{
-      ...this.getFigureStyle(),
-      transform: `rotateY(0deg) translateZ(${this.props.size / 2}rem)`,
-      }} />,
+        ...this.getFigureStyle(),
+        transform: `rotateY(0deg) translateZ(${this.props.size / 2}rem)`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        letterSpacing: '0.33rem',
+        fontSize: '2em',
+      }}>
+      {this.props.index}
+      </figure>,
     <figure
       key={'back'}
       style={{
@@ -92,7 +105,10 @@ export default class extends Component {
     } = this.state;
 
     return (
-      <section style={container}>
+      <section
+        style={container}
+        onMouseEnter={this.toggleBorderColor}
+        onMouseLeave={this.toggleBorderColor}>
         <div style={cube}>
           {this.generateFaces()}
         </div>
