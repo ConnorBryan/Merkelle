@@ -23,24 +23,40 @@ const compact = {
   borderSpacing: 0,
 };
 
-export default ({ worldmap }) => {  
+export default ({ worldmap, activeTile, setActiveTile }) => {
+  const { y, x } = activeTile;
+  let rows = 0;
+  let columns = 0;
+    
   return (
     <table
       style={compact}
       className='Worldmap'>
       <tbody>
-        {worldmap.grid && worldmap.grid.map((row, i) => (
-          <tr key={i}>
-            {row.map((tile, i) => (
-              <td key={i}>
-                <img
-                  src={terrains[tile.terrain]}
-                  width={64}
-                  height={64} />
-              </td>
-            ))}
-          </tr>
-        ))}
+        {worldmap.grid && worldmap.grid.map((row, i) => {
+          rows = i;
+          return (
+            <tr key={i}>
+              {row.map((tile, i) => {
+                columns = i;
+                return (
+                  <td
+                    key={i}
+                    style= {rows === y && columns === x
+                        ? { border: `1px solid orange`, boxSizing: 'border-box' }
+                        : { boxSizing: 'border-box' }
+                    }
+                    onClick={() => setActiveTile(tile)}>
+                    <img
+                      src={terrains[tile.terrain]}
+                      width={64}
+                      height={64} />
+                  </td>
+                )
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
