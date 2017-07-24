@@ -50,7 +50,7 @@ class App extends Component {
     this.pollingForBlockchain = undefined;
   }
 
-  mineBlock = (mine = 'https://localhost:3001/mineBlock') => (
+  mineBlock = (mine = 'http://localhost:3001/mineBlock') => (
     fetch('https://localhost:3001/mineBlock', {
       method: 'POST',
       body: '',
@@ -61,7 +61,7 @@ class App extends Component {
       })
   )
 
-  pollForBlockchain = (blocks = 'https://localhost:3001/blocks') => (
+  pollForBlockchain = (blocks = 'http://localhost:3001/blocks') => (
     fetch(blocks)
       .then(rawData => rawData.json())
       .then(blockchain => {
